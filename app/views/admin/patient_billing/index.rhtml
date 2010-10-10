@@ -1,0 +1,114 @@
+
+<script>
+j=1;
+//var myArray = new Array("Alice", "Fred", "Jean");
+//var myArray = new Array[{value:"1",text:"Alice"},{value:"2",text:"Fred"},{value:"3",text:"Jean"}]
+//var myArray=new Array();
+var myArray=new Array();
+ <%for m in 0..@stocks_item_name.size-1%>
+ myArray[<%=m%>]='<%=@stocks_item_name[m]%>';
+ <%end%>
+function addItem()
+{
+ 
+ itemdiv=document.getElementById('itemdiv');
+  
+  newitem=document.createElement("input");
+  newquantity=document.createElement("input");
+newrate=document.createElement("input");
+newtotal=document.createElement("input");
+
+selectitem=document.createElement("select");
+for(i=0;i<=myArray.length-1;i++)
+{
+  
+             selectitem.options[i] = new Option(myArray[i], myArray[i].text);
+  
+
+}
+
+
+
+removeanchor=document.createElement("a");
+
+removeanchor.setAttribute("href","#");
+removeanchor.innerHTML="remove item";
+removeanchor.setAttribute("onclick","removeItem("+j+");");
+
+
+newline=document.createElement("br");
+newitem.id="item_"+j;
+newitem.name="item_"+j;
+newquantity.id="quantity_"+j;
+newquantity.name="quantity_"+j;
+newrate.id="rate_"+j;
+newrate.name="rate_"+j;
+newtotal.id="total_"+j;
+newtotal.name="total_"+j;
+removeanchor.id="remove_link_"+j;
+removeanchor.name="remove_link_"+j;
+
+  //newitem="Item"+j+":<input type='text' id='item_"+j+"' name='item_"+j+"' />";
+ // newitem=document.createElement("text");
+  //newitem=document.createElement("Item"+j+":<input type='text' id='item_"+j+"' name='item_"+j+"' />");
+  j=j+1;
+  itemdiv.appendChild(newitem);
+  itemdiv.appendChild(newrate);
+  itemdiv.appendChild(newquantity);
+  itemdiv.appendChild(newtotal);
+  itemdiv.appendChild(removeanchor); 
+ itemdiv.appendChild(newline);
+  
+  
+  itemdiv.appendChild(selectitem);
+  
+}
+function removeItem(j)
+{
+
+itemdiv=document.getElementById('itemdiv');
+ itemremove=document.getElementById('item_'+j);
+ removelink=document.getElementById('remove_link_'+j);
+ rateremove=document.getElementById('rate_'+j);
+ quantityremove=document.getElementById('quantity_'+j);
+ totalremove=document.getElementById('total_'+j);
+ itemdiv.removeChild(itemremove);
+ itemdiv.removeChild(rateremove);
+ itemdiv.removeChild(quantityremove);
+ itemdiv.removeChild(totalremove);
+ itemdiv.removeChild(removelink);
+}
+
+</script>
+
+<div id='itemselect'>
+<select id='item_to_select' name='item_to_select[]'>
+ <%@stocks.each do |stock| %>
+ <option value='<%stock.id%>'><%=stock.item_name%> </option>
+ <%end%>
+</select>
+</div>
+
+<a href="#" onclick="addItem()">Click to add more item</a><br />
+<table>
+<tr>
+<td>Item             </td>
+<td>Rate               </td>
+<td>Quantity           </td>
+<td>Total                </td>
+</tr>
+</table>
+<form method='post' action=''>
+<input type='hidden' id='user_id' name='user_id' value='<%=@user.id%>' />
+<div id="itemdiv">
+
+<input type="text" id='item_0' name='item_0' />
+<input type="text" id='rate_0' name='rate_0' />
+<input type="text" id='quantity_0' name='quantity_0' />
+<input type="text" id='total_0' name='total_0' />
+
+<br />
+</div>
+
+<input type='submit' name='Submit' value='Submit'/>
+</form>

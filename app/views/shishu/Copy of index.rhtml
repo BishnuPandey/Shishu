@@ -1,0 +1,47 @@
+<%=link_to "Log Out" ,:action=>"destroy"%>
+<b>User : <%="#{@user.fname.capitalize} #{@user.mname.capitalize if !@user.mname.blank? } #{@user.lname.capitalize}"%></b><br>
+<table width="100%" bgcolor='#F2F2F2'>
+ 	<tr>
+ 	     <td align=left><b>Name</b></td>
+	     <td align=left><b>DOB</b></td>
+	     <td align=left><b>Father's Name</b></td>
+	     <td align=left><b>Mother's Name</b></td>
+	     <td><b>Registrtion Date</b></td>
+    </tr>
+	  	<tr>
+	  	    <td align=left><%="#{@user.fname.capitalize} #{@user.mname.capitalize if !@user.mname.blank? } #{@user.lname.capitalize}"%></td>
+	  	    <td align=left><%= @user.dob %></td>
+	  	    <td align=left><%= @user.member.father_full_name %></td>
+	  	    <td align=left><%= @user.member.mother_full_name %></td>
+	    	<td align=left><%= @user.created_at.strftime('%b %d %Y') %></td>
+	    </tr>
+</table>
+<br/>
+
+<table width="100%" bgcolor='#F2F2F2'>
+    <tr>
+        <td colspan=4>Vaccination Schedule For:
+            <b><%= "#{@user.fname.capitalize} #{@user.mname.capitalize if !@user.mname.blank? } #{@user.lname.capitalize}" %></b>
+        </td>
+    </tr>
+    <tr>
+        <td><b>vaccine name</b></td>
+        <td><b>Description</b></td>
+        <td><b>Vaccination Schedule</b></td>
+        <td><b>Previous Status</b></td>
+    </tr>
+    <% @vaccine.each do |vs| %>
+        <tr>
+            <td><%= vs.vaccine_name %></td>
+            <td><%= vs.vaccine_description %></td>
+            <td><%= @vac2["#{vs.id}"] %>to<%= @vac1["#{vs.id}"] %>[<%= "#{vs.vaccination_time_from} to  #{vs.vaccination_time_to} : #{vs.vaccination_time_format}" %>]</td>
+            <td>
+                <% if @previous_vaccination.include?(vs.id) %>
+                    Given
+                <% else %>
+                    Not given
+                <% end %>
+            </td>
+        </tr>
+    <% end %>
+</table>

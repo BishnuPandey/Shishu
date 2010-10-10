@@ -1,0 +1,119 @@
+
+ <table width="100%" border='0' cellspacing="0" cellpadding="2">
+     <tr class="hd">
+         <td >Vendor Name</td>
+         <td>Cell Phone</td>
+         <td >Phone</td>
+         <td >Address</td>
+         <td >Email</td>
+
+     </tr>
+     <tr class="even">
+         <td ><%= @vendor.name %></td>
+         <td ><%= @vendor.cell_number %></td>
+         <td><%= @vendor.office_phone %></td>
+         <td ><%= @vendor.address %></td>
+         <td ><%= @vendor.email %></td>
+     </tr>
+ </table>
+ 
+ <%if @vendor_supplied_item.blank?%>
+ <em>No Transaction.</em>
+ <%else%>
+
+ <table  cellspacing="0" cellpadding="2">
+
+     <th>
+         <td>
+             <h4>Report By Items</h4>
+         </td>
+     </th>
+     <tr class="hd">
+         <td>
+             <b>Item Name</b>
+         </td>
+         <td>
+             <b>Quantity</b>
+         </td>
+         <td>
+             <b>Total Amount(Rs.)</b>
+         </td>
+     </tr>
+     <% @vendor_supplied_item.sort.each do |stock_id, quantitys| %>
+
+     <tr class="<%= cycle("even","odd") %>">
+         <td><%= Stock.find(stock_id).item_name %></td>
+         <% quantity=0 %>
+         <% total=0 %>
+         <% for billingdetail in quantitys %>
+             <% quantity += billingdetail.quantity %>
+             <% total += billingdetail.total %>
+         <% end %>
+         <td>
+             <b><%= quantity %></b>
+         </td>
+         <td>
+             <b><%= total %></b>
+         </td>
+     </tr>
+     <% end %>
+ </table>
+ <%end%>
+ <br/>
+
+ <% unless @years.empty? %>
+     Fileter by date:
+     <%= form_tag %>
+     <%= hidden_field_tag "id",@vendor.id %>
+     <select name="year" id="year">
+         <% @years.each do |y| %>
+             <option value="<%=y%>"  <%if params[:year]==y%>selected="selected" <%end%> ><%= y %></option>
+         <% end %>
+     </select>
+
+     <select name="month" id="month">
+         <% @months.each do |y| %>
+             <option value="<%=y%>" <%if params[:month]==y%>selected="selected" <%end%>><%= y %></option>
+         <% end %>
+     </select>
+
+     <%= submit_tag "Go" %>
+     </form>
+ <% end %>
+
+ <%if @filter_vendor_supplied_detail %>
+
+ <br/>
+ <span class="bld_hd">Total transaction List  for<%= @filter_vendor_supplied_detail[0].created_at.strftime('%b,%y') %>from<%= @vendor.name %></span>
+  <table border='0' width="100%" cellspacing="3" cellpadding="2">
+
+    <tr class="hd">
+        <td >Item Name</td>
+        <td>Quantity</td>
+
+        <td >Total</td>
+        <td >Date</td>
+
+    </tr>
+             <%@filter_vendor_supplied_detail.each do|vendor|%>
+             
+
+        <tr class="<%= cycle("even","odd") %>">
+            <td ><%= vendor.stock.item_name %></td>
+            <td ><%= vendor.quantity %></td>
+
+            <td ><%= vendor.total %></td>
+            <td ><%= vendor.created_at.strftime('%Y-%m-%d') %></td>
+        </tr>
+             <%end%>
+
+           <tr>
+               <td ></td>
+
+               <td align="center">Grand Total</td>
+               <td align="center" ><%= @filter_vendor_total %></td>
+               <td ></td>
+           </tr>
+  </table>
+ <%end%>
+ 

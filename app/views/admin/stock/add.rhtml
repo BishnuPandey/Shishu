@@ -1,0 +1,76 @@
+
+<h1>Add New Stock Item</h1><br>
+<%= error_messages_for :stock %>
+
+<%=form_tag %>
+<b>If your vendor is not in the list then please first register the vendor and come here to proceed.</b><br />
+<table width="70%" border="0" cellspacing="3" cellpadding="2">
+  <tr>
+    <td>Item Type:<br/>
+    </td>
+    <td class="pad-left"><%=radio_button :stock,:item_type,"vaccine",{:checked=>@status_vaccine,:onClick=>"Element.hide('other');Element.show('vaccine');"} %>Vaccine <%=radio_button :stock,:item_type,"other",{:checked=>@status_other,:onClick=>"Element.hide('vaccine');Element.show('other');"} %>Other</td>
+  </tr>
+  <tr>
+    <td>Item Name:</td>
+    <td class="pad-left"><div id="other" ><%=text_field_tag :item_name_other,params[:item_name_other]%></div>
+      <div id="vaccine" style="display:none;"><%=collection_select :stock,:item_name, @vaccines=Vaccine.find(:all),:vaccine_name,:vaccine_name%>[* Any Vaccine Not in the list Please add first in Manage Vaccine section]</div></td>
+  </tr>
+  <tr>
+    <td>Item Description:</td>
+    <td><%=text_area :stock,:item_description ,:cols=>20,:rows=>5%></td>
+  </tr>
+  <tr>
+    <td>Item Quantity:</td>
+    <td class="pad-left"><%=text_field :stock,:item_quantity ,:size=>10%></td>
+  </tr>
+  <tr>
+    <td>Item Unit Buying Price:</td>
+    <td class="pad-left"><%=text_field :stock,:buying_rate,:size=>5%></td>
+  </tr>
+  
+  <tr>
+    <td>Item Unit Selling Price:</td>
+    <td class="pad-left"><%=text_field :stock,:item_unit_rate,:size=>5%></td>
+  </tr>
+  <tr>
+    <td>Item Unit Type</td>
+    <td class="pad-left"><%=text_field :stock,:item_unit_type,:size=>5%></td>
+  </tr>
+  <tr>
+    <td>Minimum Stock::</td>
+    <td class="pad-left"><%=text_field :stock,:min_stock,:size=>5%></td>
+  </tr>
+  <tr>
+    <td>Maximum Stock:</td>
+    <td class="pad-left"><%=text_field :stock,:max_stock,:size=>5%></td>
+  </tr>
+    <%= error_messages_for :vendor %>
+        
+        <% fields_for :vendor do |vendor| %>
+     <tr><td> Vendor:</td><td class="pad-left"> <%=collection_select :vendor,:name, @allvendors,:id,:name%>
+        </td>
+      </tr>
+      
+    <%end%>
+    
+</table>
+    <br/>
+        <br/>
+    
+    
+    
+    <%=submit_tag "Save"%>
+    </form>
+    <%if !@stock.nil?%>
+    <%if !@stock.item_type.blank? and @stock.item_type=="vaccine"%>
+    <script>
+
+
+    </script>
+    <%else%>
+    <script>
+Element.hide('vaccine');
+Element.show('other');
+    </script>
+    <%end%>
+    <%end%>

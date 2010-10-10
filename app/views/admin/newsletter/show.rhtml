@@ -1,0 +1,17 @@
+<h3>Newsletter Entry</h3>
+    <div class="form_row">
+        <b>Subject:</b><%=h @newsletter.subject %>
+    </div>
+    <div class="form_row">
+        <b>Created at:</b><%= h @newsletter.created_at %>
+    </div>
+    <div class="form_row">
+        <b>Updated at:</b><%= h @newsletter.updated_at %>
+    </div>
+    <div class="form_row">
+        <b>Body:</b> <%=(@newsletter.body) %>
+    </div>
+<div class="form_row">
+    <%= link_to 'Edit', :controller=>'admin/newsletter', :action=>'edit', :id=>@newsletter.id %> |
+    <%= link_to 'Back',   :controller=>'admin/newsletter', :action=>'index' %>
+</div>

@@ -1,0 +1,45 @@
+<table width="100%" border="0" cellspacing="3" cellpadding="2">
+<tr class="hd"> 
+<td>Vendor Name</td>
+<td>Vendor Address </td>
+<td>Vendor Office Phone</td>
+<td>Vendor Cell Number </td>
+<td>Vendor Email </td>
+</tr>
+
+<tr class="<%= cycle("even","odd") %>"> 
+<td><%=@vendor.name %></td>
+<td><%=@vendor.address %></td>
+<td><%=@vendor.office_phone %></td>
+<td><%=@vendor.cell_number %></td>
+<td><%=@vendor.email %></td>
+</tr>
+</table>
+<br>
+<div "paymentstatus">
+<%=form_tag%>
+<%=hidden_field_tag :id,@vendor.id%>
+    <table>
+    <tr class="hd">
+        <td>Total Transaction Amount : </td>
+        <td><%=@vendor.paid_amount+@vendor.due_amount%></td>
+    </tr>
+    <tr class="odd">
+        <td>Paid Amount : </td>
+        <td><%=@vendor.paid_amount%></td>
+    </tr>
+    <tr class="even">
+        <td>Due Amount : </td>
+        <td><%=@vendor.due_amount%></td>
+    </tr>
+    <tr >
+        <td>    Update Paid Amount :</td>
+        <td> <%=text_field_tag "paid"%></td>
+    </tr>
+    <tr >
+        <td></td>
+        <td><%=submit_tag 'update'%></td>
+    </tr>
+    </table>
+</form>
+</div>

@@ -1,0 +1,201 @@
+<script language="javascript">
+j=1;
+var stocks=new Array();
+<%#=@allitems.inspect%>
+<%unless @allitems.blank? %>
+<%@allitems.each do |s|%>
+stocks[<%=s.id%>]=<%=s.item_unit_rate%>
+<%end%>
+<%end%>
+
+function check_quantity(){
+ 
+    var ajax_req = new Ajax.Updater('show_errors', "/admin/billing/quantity_check" , {asynchronous:false, evalScripts:true,method:'post', parameters: Form.serialize('billform')} );    
+    eval(ajax_req) ;
+}
+
+
+function update_total(){
+     subTot=document.getElementById('subTotal').value;
+     disc=document.getElementById('discount').value;
+     subTot = parseFloat(subTot);
+     disc   = parseFloat(disc);
+     if(isNaN(disc) || disc>subTot)
+      {
+      document.getElementById('discount').value=0;
+       disc=0;
+      }
+     //document.getElementById('grandTotal').value=(subTot*(1-disc/100)).toFixed(2);
+     document.getElementById('grandTotal').value=(subTot-disc).toFixed(2);
+}
+
+
+function changeRelated(item_index,selected_item){
+    var itt=stocks[selected_item];
+    document.getElementById('rate_'+item_index).value=stocks[selected_item];    
+    document.getElementById('total_'+item_index).value=document.getElementById('quantity_'+item_index).value*document.getElementById('rate_'+item_index).value;
+    var ajax_req = new Ajax.Updater('total_dis', "/admin/billing/total_dis" , {asynchronous:false, evalScripts:true,method:'post', parameters: Form.serialize('billform')} );    
+    eval(ajax_req) ;
+
+}
+
+function calculateTotal(idString){
+    var string1 = idString;
+    k=idString.indexOf('_');
+    var item_index;
+    
+    lind=idString.length-1;
+ 
+      
+      item_index=string1.substring((k+1),lind+1);
+    
+    //alert(item_index)
+    quantity=document.getElementById('quantity_'+item_index).value;
+    rate=document.getElementById('rate_'+item_index).value;
+    if(isNaN(quantity) || quantity<0 ){
+        document.getElementById('quantity_'+item_index).value=0;
+        quantity=0;
+    }
+    
+    if(isNaN(rate) || rate<0){
+        document.getElementById('rate_'+item_index).value=0.0;
+        rate=0.0;
+    }
+    document.getElementById('total_'+item_index).value=quantity*rate;
+    var ajax_req = new Ajax.Updater('total_dis', "/admin/billing/total_dis" , {asynchronous:false, evalScripts:true,method:'post', parameters: Form.serialize('billform')} );    
+    eval(ajax_req) ;    
+}
+
+function addElement() {
+      var ajax_req = new Ajax.Updater('updatingdiv', "/admin/billing/additem" , {asynchronous:false, evalScripts:true,method:'post', parameters: Form.serialize('billform')} );    
+            eval(ajax_req) ;
+      var ni = document.getElementById('addmore');
+      var numi = document.getElementById('dmore');
+      var newdiv = document.createElement('div');
+      var divIdName = 'my'+j+'Div';
+      newdiv.setAttribute('id',divIdName);
+      newdiv.innerHTML = numi.innerHTML+' <a href=\'#\' onclick=\'removeElement('+divIdName+')\'>Remove Item</a>';
+    
+      ni.appendChild(newdiv);
+      numi.innerHTML='';
+      j +=1;
+}
+
+function removeElement(divNum) {
+  
+   var d = document.getElementById('addmore');
+   var olddiv = document.getElementById(divNum.id);
+   d.removeChild(olddiv);
+   var ajax_req = new Ajax.Updater('updatingdiv', "/admin/billing/removeitem" , {asynchronous:false, evalScripts:true,method:'post', parameters: Form.serialize('billform')} );    
+            eval(ajax_req) ;
+   var ajax_reque = new Ajax.Updater('total_dis', "/admin/billing/total_dis" , {asynchronous:false, evalScripts:true,method:'post', parameters: Form.serialize('billform')} );    
+    eval(ajax_reque) ;      
+}
+
+</script>
+<div id="show_errors" style="background:yellow"> </div>
+<table width="50%" border="0" cellspacing="3" cellpadding="2" >
+     <tr>
+       <td width="37%"><b>Name : </b></td>
+       <td width="63%"><b>
+       <%= link_to @user.fname,{ :controller=>"/admin/home",:action=>"show_detail",:id=>@user.id},:popup => ['Shishu detail', 'height=400,width=400,scrollbars=1'] %>
+       </b></td>
+     </tr>
+     <tr>
+       <td><b>Birth Date :</b></td>
+       <td><b><%=@user.dob%></b></td>
+     </tr>
+     <tr>
+       <td><b> Father's Name : </b></td>
+       <td><b><%=@user.member.father_full_name%></b></td>
+     </tr>
+      <tr>
+       <td><b> Mother's Name : </b></td>
+       <td><b><%=@user.member.mother_full_name%></b></td>
+     </tr>
+   </table>
+   <br/>
+   <span class="txt3">Shishu Code:<%=@user.code%></span>
+   <br/>
+  <br/> 
+ <div class="detail">Billing Detail</div>    
+<fieldset style="padding:10px 15px;background:#FFF;">
+
+<div id='updatingdiv'>
+<%if @stocks.size>1%>
+<a href="javascript:void(0);" onClick=" addElement();">Add more item</a>
+<%end%>
+
+</div>
+<form action='/admin/billing/confirmation' method='post' id='billform' name='billform'>
+<%=hidden_field_tag "user_id",@user.id%>
+<table width="100%" cellpadding="2" cellspacing="3">
+<tr>
+<!--td>Item Name</td>
+<td>Rate</td>
+<td>Quantity</td>
+<td>Total</td-->
+<td colspan="4" >
+<span style="word-spacing:75px;" >
+ItemName
+</span>
+<span style="word-spacing:100px;" >
+Rate
+Quantity
+Total
+</span>
+</td>
+</tr>
+
+<tr>
+<td colspan="4" >
+ <div id='addmore' >
+
+   <select id='1' name='items[]' onChange="Javascript:changeRelated(this.id,this.options[this.selectedIndex].value);check_quantity();">
+  <%=options_from_collection_for_select(@stocks, "id", "item_name")%>
+  </select>
+  <input type="text" value=<%=@stocks[0].item_unit_rate%> name='rate_1' id='rate_1' onBlur="Javascript: calculateTotal(this.id);" readonly />
+  <input type="text" value="0" name='quantity_1' id='quantity_1' onBlur="Javascript: check_quantity();calculateTotal(this.id);" />
+  <input type="text" value="0.0" name='total_1' id='total_1' readonly style="background:white" />
+
+  
+  <br />
+</div>
+
+</td>
+</tr>
+</table>
+<div id='total_dis'>
+    <table width="50%" border="0" cellspacing="3" cellpadding="2">
+    
+    
+    
+    <tr>
+        <td colspan='2'>&nbsp;<hr/></td>
+        
+      </tr>
+
+<tr>
+        <td>SubTotal:</td>
+        <td><input type="text" name='subTotal' id='subTotal' value="0.00" readonly style="background:white"  /></td>
+      </tr>
+
+      <tr>
+        <td>Discount Amount:</td>
+        <td><input type="text" name='discount' id='discount' value="0.00" onBlur="javascript:update_total();" /></td>
+      </tr>
+    
+
+<tr>
+        <td>Grand Total:</td>
+        <td><input type="text" name='grandTotal' id='grandTotal' value="0.00" style="background:white" readonly  /></td>
+      </tr>
+
+        </table>
+       
+</div>
+Comments:
+        <%=text_area_tag 'comment',nil,:rows=>5,:cols=>25%><br />
+<%=submit_tag 'Save' %>
+</form>
+</fieldset>

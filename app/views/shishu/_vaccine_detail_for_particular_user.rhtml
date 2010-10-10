@@ -1,0 +1,117 @@
+
+<table width="100%" bgcolor='#F2F2F2'>
+    <tr>
+        <td colspan=4>Vaccination Schedule For:
+            <b><%= "#{@user.fname.capitalize} #{@user.mname.capitalize if !@user.mname.blank? } #{@user.lname.capitalize}" %></b>
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+            <b>Vaccine Name</b>
+        </td>
+        <td>
+            <b>Description</b>
+        </td>
+        <td>
+            <b>Vaccination Schedule</b>
+        </td>
+        <td>
+            <b>Status</b>
+        </td>
+        <td>
+            <b>Vaccination Clinic</b>
+        </td>
+        <td>
+            <b>Given Date</b>
+        </td>
+        <td>
+            <b>Comments</b>
+        </td>
+    </tr>
+    <% @vaccines.each do |vs| %>
+
+        <%
+            reqformat=vs.vaccination_time_format
+            case reqformat
+            when "Months"
+              @vaccine_to =@user.dob + vs.vaccination_time_to.months
+              @vaccine_from =@user.dob + vs.vaccination_time_from.months
+            when "Days"
+              @vaccine_to = @user.dob + vs.vaccination_time_to.days 
+              @vaccine_from =@user.dob + vs.vaccination_time_from.days
+            when "Years"
+              @vaccine_to =@user.dob + vs.vaccination_time_to.years
+              @vaccine_from =@user.dob + vs.vaccination_time_from.years
+            end
+%>
+        <tr>
+            <td><%= vs.vaccine_name %></td>
+            <td><%= vs.vaccine_description %></td>
+            <td><%= @user.time_schedule_for_user(vs.id) %>[<%= "#{vs.vaccination_time_from} to  #{vs.vaccination_time_to} : #{vs.vaccination_time_format}" %>]</td>
+
+            <% if @user_vaccine_array.include?(vs.id) %>
+                <td>Given</td>
+
+                <td>
+                    <% usr_vac=UserVaccine.find(:first,:conditions=>['user_id=? and vaccine_id=?',@user.id,vs.id],:order=>'vaccine_date DESC') %>
+                    <% if usr_vac.from_here.to_s=='Y' %>
+                        Here
+                    <% else %>
+                        Outside
+                    <% end %>
+                </td>
+                <td><%= usr_vac.vaccine_date %></td>
+                <td><%= usr_vac.comment %>
+</td>
+            <% else %>
+                <td>Not given</td>
+                <td>
+                    <% if @current_admin %>
+
+                        <% if @vaccine_from <= Time.now.to_date and Time.now.to_date<= @vaccine_to %>
+                            <%= link_to "Inform For Vaccination" ,:controller=>"/admin/report",:action=>"inform_for_vaccination",:id=>@user.id,:vaccine_id=>vs.id,:from=>@vaccine_from,:to=>@vaccine_to,:detail=>"detail" %>
+                        <% end %>
+                    <% end %>
+                </td>
+            <% end %>
+
+        </tr>
+    <% end %>
+</table>
+
+<%
+    today_date=Time.now.to_date.strftime("%m-%d")
+    @birthday_users=User.find(:first,:conditions=>["id=? and dob like ?",@user,"%"+today_date+"%"])
+%>
+
+<% unless @birthday_users.blank? %>
+
+    <% if @current_admin %>
+        <br/>
+        <br/>
+        <br/>
+        Today is birth day of:
+        <%= "#{@user.fname.capitalize} #{@user.mname.capitalize if !@user.mname.blank? } #{@user.lname.capitalize}" %>
+        </b>
+        <br/>
+
+        <%= link_to_function "Send Greeting (+)", "Element.toggle('greeting');" %>
+        <div id="greeting" style="display:none;"><%= form_tag :controller=>"/admin/report",:action=>"send_greeting",:id=>@birthday_users %><%= hidden_field_tag "from_detail","details" %>
+            <% Newsletter.find(:all).each do |nl| %>
+
+                <%= radio_button_tag "nid",nl.id %>
+                <%= nl.subject %>
+                <br/>
+
+            <% end %><%= submit_tag "send" %>
+            </form>
+        </div>
+<% else %>
+    <br/>
+    <br/>
+    <br/>
+    Happy Birthday
+    <b><%= "#{@user.fname.capitalize} #{@user.mname.capitalize if !@user.mname.blank? } #{@user.lname.capitalize}" %></b>
+<% end %>
+<% end %>

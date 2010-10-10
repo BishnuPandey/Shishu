@@ -1,0 +1,62 @@
+<script language="Javascript">
+   function change_search_form(v){
+    if(v=="shishu_name"){
+        document.getElementById('div_search_shishu_name').style.display="block"
+        document.getElementById('div_search_shishu_code').style.display="none"
+    }else{
+        document.getElementById('div_search_shishu_name').style.display="none"
+        document.getElementById('div_search_shishu_code').style.display="block"    
+    }
+   }
+</script>
+<table width="100%" >
+<tr>
+	<td width="11%">
+<b class="bold">Filter Shishu by</b></td>
+	<td width="77%"><form name="sform" action="" style="display:inline;">
+<div style="float:left;width:115px;">
+<select name="shishu_filterby" id="shishu_filterby" onchange="change_search_form(this.value)" class="sel1">
+<option value="shishu_name" selected="selected">Shishu Name</option>
+<option value="shishu_code">Shishu Code</option>
+</select>
+</div>
+<div id="div_search_shishu_name" style="display:block;">
+<%= text_field_tag("shishu_name", params['shishu_name'], :size => 30,:class=>"sel2") %>
+</div>
+
+<div  id="div_search_shishu_code" style="display:none;">
+
+<%= text_field_tag("shishu_code", params['shishu_code'], :size => 30,:class=>"sel2") %>
+
+</div>
+
+</form>
+</td>
+	<td width="12%" align="right"><strong class="strong1"><%= link_to "Add New Shishu", :controller=>'admin/home',:action=>'newuser'%></strong></td>
+</tr>
+</table>
+
+
+
+<div id='spinner' style="margin-left:450px;width:100px;display:none;background:url('/images/spinner.gif') no-repeat;">&nbsp;     </div>
+   
+
+  
+<%= observe_field 'shishu_code',  :frequency => 2,
+         :update => 'list',
+         :before => "Element.show('spinner')",
+         :success => "Element.hide('spinner')",
+         :url => {:action => 'index'},
+         :with => 'shishu_code' %>
+<%= observe_field 'shishu_name',  :frequency => 2,
+         :update => 'list',
+         :before => "Element.show('spinner')",
+         :success => "Element.hide('spinner')",
+         :url => {:action => 'index'},
+         :with => 'shishu_name' %>
+ 
+<div id="list">
+<%= render :partial => "user_list" %>
+</div>
+
+

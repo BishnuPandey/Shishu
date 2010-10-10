@@ -1,0 +1,31 @@
+<div align="center"><h1>Create New ECard</h1><br/>
+</div>
+<label for="last_name"></label>
+<div align="center"><%=error_messages_for :ecard%><br/>
+  <%=form_tag ({:action => 'create'}, :multipart=>true) %><br/>
+  
+  <table width="100%" border="0" cellspacing="3" cellpadding="2">
+    <tr>
+      <td width="26%"><label for="first_name">  
+        </label>
+      </td>
+      <td width="74%"><%= text_field 'ecard', 'subject' %></td>
+    </tr>
+    <tr>
+      <td><label for="classified_picture">
+        <div align="right">Picture</div>
+        </label>
+      </td>
+      <td><span class="div_box"><%= file_field 'ecard', 'pictureimg' %></span></td>
+    </tr>
+    <tr>
+      <td height="74"></td>
+      <td><%= fckeditor_textarea("ecard", "body", :toolbarSet => 'Simple', :width => '80%', :height => '200px') %></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><%= submit_tag "Save" %></td>
+    </tr>
+    </table>
+</div>
+</form>

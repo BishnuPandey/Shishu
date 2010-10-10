@@ -1,0 +1,37 @@
+
+<b>Welcome <u> <%="#{@user.fname.capitalize}"%></u></b><br>
+
+<div style="width:100%; float:left;">
+<br/>
+<%=render :partial=>'particular_user_detail'%>
+<br/>
+<hr/>
+<%#=render :partial=>'vaccine_detail_for_particular_user'%>
+<%=render :partial=>'next_visit_detail'%>
+<div>
+<br><strong><%=link_to_function 'Send message to clinic',"Element.toggle('send_message');" %></strong>
+<div id='send_message' style="display:none">
+<br>
+[Shishu Clinic will send you the respone of this query in your email address (as mentioned in registration process).]
+<hr />
+<%=error_messages_for :message%>
+<%form_tag do  %>
+
+<table width="100%" cellpadding="1" cellspacing="2">
+<tr>
+<td>Subject:</td>
+<td style="padding-left:30px;"><%=text_field :message,:subject %></td>
+</tr>
+<tr>
+<td>Message:</td>
+<td><%=text_area :message,:body,:rows=>3,:cols=>25 %></td>
+</tr>
+</table>
+<%=submit_tag 'Send'%>
+<%end%>
+
+</div>
+
+</div>
+</div>
+

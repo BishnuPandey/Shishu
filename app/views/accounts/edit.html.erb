@@ -1,0 +1,29 @@
+<div><%if flash[:error]%><%=flash[:error]%><%end%></div>
+<div><%if flash[:notice]%><%=flash[:notice]%><%end%></div>
+<% form_tag :action => "update" do %>	
+	<table border="0" cellspacing="3" cellpadding="2">
+	<tr>
+	<td colspan=2><b>Change Password</b></td>
+	</tr>
+	<tr>
+		<td>Old Password</td>
+		<td> <%= password_field_tag 'old_password', @old_password%></td>
+	</tr>
+	<tr>
+		<td>New Password</td>
+		<td> <%= password_field_tag 'password', {}%>  <span class='example'>[Eg: Between 6 and 40 characters]</span>
+		</td>
+	</tr>
+	<tr>
+		<td>Confirm new password</td>
+		<td>  <%= password_field_tag 'password_confirmation', {}%></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>  <%= submit_tag 'Change Password' %></td>
+	</tr>			
+	</table>
+	<fieldset>	
+
+<% end %>
+

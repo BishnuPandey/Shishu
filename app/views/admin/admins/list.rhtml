@@ -1,0 +1,25 @@
+<div>
+<br>
+<strong><%= link_to 'Add new admin', :controller=>'admin/admins',:action=>'new'%></strong>
+<br><br>
+<h1>Admin list</h1><br>
+<table width="100%" bgcolor='#F2F2F2' cellspacing="0" cellpadding="2">
+ 	<tr class="hd">
+	     <td><b>Name</b></td>
+	     <td><b>Email<b></td>
+	     <td><b>Creation Date<b></td>	
+	     <td></td>	        
+    </tr>
+	<% @admin.each do |admin| %>
+	  	<tr class="<%= cycle("even","odd") %>">
+	    	<td><%=h admin.login %></td>
+	    	<td><%=h admin.email %></td>
+	    	<td><%=h admin.created_at.strftime('%b %d %Y') %></td>
+	    	<td class="action_stl">
+	    		<%= link_to 'Edit',  :controller=>'admin/admins',:action=>'edit',:id=>admin.id %> | 
+	    		<%= link_to 'Delete',  {:controller=>'admin/admins',:action=>'delete',:id=>admin.id}, :confirm => 'Are you sure?', :method => :delete %>
+	  		</td>
+		</tr>
+	<% end %>
+</table>
+</div>

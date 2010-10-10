@@ -1,0 +1,81 @@
+  <%= stylesheet_link_tag "shishu" %>
+  <style>
+    .uptable{
+    background-color:#EEEEEE;
+    font-size: 13px;
+    }
+    .uprow{
+    background-color:#EEEEFF;
+    font-weight:bold;
+    }
+  </style>
+
+<table width="100%" border="0" cellspacing="2" cellpadding="2" align="center" width="100%" border="0" cellspacing="2" cellpadding="2" align="center" style="background-color:#FFF">
+  
+    <tr>
+     <td  class="uprow">Transaction Details</td>
+   
+   </tr>
+   <tr><td>
+   <table width="85%" border="0" cellspacing="2" cellpadding="2" align="center" width="100%" border="0" cellspacing="2" cellpadding="2" align="center" class="uptable">
+  
+  <tr  class="uptable">
+     <td width="30%"><b>Shishu Name</b> </td>
+     <td><%=@billing.user.fname%></td>
+   
+   </tr>
+     <tr   >
+     <td ><b>Amount</b></td>
+     <td>NRs <%=@billing.total_sum%></td>
+      <tr  >
+   <td ><b>Discount Amount</b></td> 
+   <td>NRs <%=@billing.discount%></td>
+    </tr>
+      <tr   >
+     <td ><b>Total Amount</b></td>
+    <td>NRs <%=@billing.total_sum-@billing.discount%></td>
+     </tr>
+    <tr >
+    <td > <b>Comments</b></td>
+    <td><%=@billing.comment%></td>
+    
+  </tr>
+  </table>
+  </td>
+  </tr>
+  
+</table>
+
+
+<br />
+
+<table width="100%" border="0" cellspacing="2" cellpadding="2" align="center" width="100%" border="0" cellspacing="2" cellpadding="2" align="center" style="background-color:#FFF">
+  <tr  class="uptable">
+  <td width="3%"><b>S.N.</b> </td>
+    <td width="10%"><b>Item Name</b>  </td>
+    <td width="16%"><b>Qty</b> </td>
+    <td width="11%"><b>Rate</b></td>
+    <td width="6%"><b>Total</b></td>
+   </tr>
+  <%cnt=1%>
+
+  <%@billing_details.each do|bd|%>
+  <tr style="background-color:#F7F8F8;font-size: 12px;">
+    <td><%=cnt%></td>
+    <td><%=bd.stock.item_name%></td>
+    <td><%=bd.quantity%></td>
+    <td><%=bd.rate%></td>
+    <td><%=bd.rate*bd.quantity%></td>
+    </tr>
+  <%cnt=cnt+1%>
+ 
+  
+<%end%>
+
+</table>
+<br />
+<table width="100%" border="0" cellspacing="2" cellpadding="2" align="center" width="100%" border="0" cellspacing="2" cellpadding="2" align="center" style="background-color:#FFF">
+  <tr  class="uptable">
+  <td align="center" ><input type="button" name="closebtn" value="Close" onclick="window.close()"/></td>
+  </tr>
+</table>

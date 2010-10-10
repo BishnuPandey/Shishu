@@ -1,0 +1,17 @@
+<br>
+<strong> <%=link_to 'Create new ecard',:action=>'new'%> <br /></strong>
+<br>
+<% if @ecards.blank? %>
+<p>No ecards has been created.</p>
+<% else %>
+    <%@ecards.each do |card|%>
+        <%if !card.file_name.blank? %> 
+            <%=image_tag "ecards/#{card.file_name}", :size=>'100x80'%>
+            
+        <%end%>
+            <%=card.subject%><br/>
+            &nbsp;&nbsp;&nbsp;<%=link_to 'detail', :action=>'show',:id=>card.id%>&nbsp;&nbsp;&nbsp;
+            <%=link_to 'delete', :action=>'delete',:id=>card.id%><br />
+        
+    <%end%>
+<% end %>

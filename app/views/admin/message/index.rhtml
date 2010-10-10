@@ -1,0 +1,30 @@
+<h1>Messages From Parents </h1>
+
+<%if @messages.blank?%>
+<em>No message</em>
+<%else%>
+<table width=100% border="0" cellspacing="3" cellpadding="2" >
+	<thead><tr class="hd">
+		<td>Date:</td>
+		<td >Shishu Name</td>
+	    <td>Subject</td>
+	    <td>Message</td>
+	    <td>Read/Unread</td></tr>
+	    </thead>
+		
+	
+	<% for message in @messages %>
+    	<tr class="<%= cycle("even","odd") %>">
+    		<td><%= message.created_at.strftime('%d %b,%Y') %></td>
+    		<td><%="#{message.user.fname} #{message.user.lname}"%></td>
+    	
+    		<td><%=h(message.subject)%>%><%#= link_to h(message.subject), :controller=>'admin/message', :action=>'show',:id=>message.id %>
+    		<td><%=h(message.body)%><%#= link_to  h(truncate(message.body,20)), :controller=>'admin/message', :action=>'show',:id=>message.id %>
+    			<td><%if message.status=="1"%>Read<%else%>Unread<%end%></td>
+    		
+    		<td><%#= link_to 'Delete',{:controller=>'admin/message', :action=>'delete',:id=>message.id},:confirm => 'Are you sure to delete ?' %></td>
+    	</tr>
+    <% end %>
+</table>
+
+<%end%>

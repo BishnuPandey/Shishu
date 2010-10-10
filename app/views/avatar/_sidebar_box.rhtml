@@ -1,0 +1,19 @@
+<%hide_edit_links=@user.avatar.exists?%>
+   
+
+    <% if @user.avatar.exists? %>
+      <%= thumbnail_tag(@user) %>
+    <% elsif not hide_edit_links %>
+    No Photo yet? 
+      <%= link_to "Upload Photo", :controller => "avatar", 
+                                 :action => "upload" %>
+    <% end %><br/>
+   
+    <% if hide_edit_links %>
+      <span >
+        <%= link_to "Change Photo", :controller => "avatar", :action => "upload" %>
+      </span>
+    <% end %>
+ 
+
+ 

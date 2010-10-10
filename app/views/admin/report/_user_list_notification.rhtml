@@ -1,0 +1,122 @@
+
+<br/>
+    <hr/>
+    <br/>
+   <h4>Shishu with Birthday on
+
+<b><%= @tod_date %></b></h4>
+    <br/>
+    <hr/>
+
+
+<table width="100%" border='0' cellspacing="0" cellpadding="2">
+        <tr class="hd">
+            <td >Shishu Code</td>
+            <td >Reg Date</td>
+            <td >Shishu Name</td>
+       
+            <td >Birth Date</td>
+            <td>Father's Name</td>
+            <td >Mother's Name</td>
+            <td>Cell Phone</td>
+            <td>Home Phone</td>
+            <td></td>
+        </tr>
+    <tbody>
+        <% @birthday_users.each do |u| %>
+            <tr class="<%= cycle("even","odd") %>">
+                <td><%= u.code %></td>
+                <td><%= u.created_at.strftime("%b %d, %Y") %></td>
+                <td><%= u.fname %></td>
+
+                <td><%= u.dob %></td>
+                <td><%= u.member.father_full_name %></td>
+                <td><%= u.member.mother_full_name %></td>
+                <td><%= u.member.father_cell_phone %></td>
+                <td><%= u.member.home_phone %></td>
+                <td><%= link_to 'Shishu Detail',  :controller=>'admin/home',:action=>'userdetail',:id=>u.id %>
+            </tr>
+         <% end %>
+     </tbody>
+    </table>
+<% if false %> this is commented because in localmachine it doesn't work for onle remove comment<% end %>
+<% if false %>    <% unless @birthday_users.blank?%><% end %>
+<% if false %> <%= link_to_function "Send Greeting to all", "Element.toggle('greeting');"%><% end %>
+<% if false %>  <div id="greeting" style="display:none;"><% end %>
+<% if false %>  <%=form_tag :controller=>"/admin/report",:action=>"send_greeting",:id=>@birthday_users%><% end %>
+<% if false %>  <% end %>
+<% if false %>  <%  Ecard.find(:all,:order=>"created_at Desc").each do |ec|  %><% end %>
+<% if false %><% end %>
+<% if false %>    <%=radio_button_tag "nid",ec.id%><%=ec.subject%><% end %>
+<% if false %>    <%unless ec.file_name.blank?%><% end %>
+<% if false %>        <%=image_tag "ecards/#{ec.file_name}" %><% end %>
+<% if false %>    <%end%> <br/><br/><% end %>
+<% if false %><% end %>
+<% if false %>  <% end %>
+<% if false %>  <%  end  %><% end %>
+<% if false %>  <%=submit_tag "send"%><% end %>
+<% if false %>  </form><% end %>
+<% if false %>  </div><% end %>
+<% if false %><%end%><% end %>
+    <br/>
+    <hr/> 
+    <br/>
+    
+    <h4>Shishu Visiting Detail  : <b><%= @tod_date %></b>
+    
+    <h4>
+    <%=link_to "Print List",{:controller=>"report",:action=>"print_report",:id=>@tod_date},:popup=>["height=800,width=800,scrollbars=yes"]%>
+    <br/>
+    <hr/>
+
+     <div>
+     <table width="100%" border='0' cellspacing="0" cellpadding="2">
+   
+            <tr class="hd">
+                <td width="15%">Shishu Code</td>
+                <td width="25%">Shishu Details</td>
+            
+                
+                <td>&nbsp; </td>
+                
+              </tr>
+       
+        </table>
+        
+        
+         <%@users.each do |usr|%>
+       <table width="100%" border='0' cellspacing="0" cellpadding="2">
+   
+            <tr class="<%= cycle("even","odd") %>">
+                <td width="15%"><%=usr.code%></td>
+                <td ><%=usr.fname%>/F:<%=usr.member.father_full_name%>(<%=usr.member.father_cell_phone%>)
+                /M:<%=usr.member.mother_full_name%>(<%=usr.member.mother_cell_phone%>)</td>
+                <td >
+                <%#=link_to_function "Visiting Detail","Element.toggle('#{usr.id}')"%>  
+                <%= link_to 'Shishu Detail',  {:controller=>'admin/home',:action=>'userdetail_print',:id=>usr.id},:popup => ['Shishu Detail', 'scrollbar=yes,height=400,width=800'] %></td>
+              </tr>
+     </table>
+         <div id="<%=usr.id%>" style="display:block;padding:0 5px;" class="hd">
+         <%usr.user_schedules.find(:all,:conditions=>["vaccination_date like ?","%"+@tod_date.to_s+"%"],:order=>"created_at Desc").each do|usched|%>
+         
+        <div style="background-color:#FFF;color:blue;margin:0;font-size:12px;">
+                 <!--b>Visiting Date : <%=usched.vaccination_date.strftime('%b %d,%Y')%></b><br/-->
+                 <span style="color:red;"><b >Description :</b> <%=usched.comment%></span><br/>
+                 <b>Memo :</b> 
+                 <hr/>
+                 <%=usched.memo%>
+               
+   
+        <hr/>
+        </div>
+    <span style="color:blue;">
+                  <%=link_to "Add Memo",{:controller=>"/admin/home",:action=>"user_schedule_memo",:id=>usched.id,:user_id=>usr.id}, :popup=>["height=400,width=400,scrollbars=yes"],:class=>"links" %> | 
+                  <%=link_to "Report" ,:controller=>"admin/home",:action=>"userdetail" ,:id=>usr.id%>
+                </span>
+        <%end%>
+       
+        </div>
+       <%end%>
+       
+       
+           

@@ -1,0 +1,54 @@
+<br><strong><%=link_to 'Back', :action=>'index'%></strong><br><br>
+<table cellpadding="2" cellspacing="3">
+
+<% form_for :stock  do |f|%>
+ <tr>
+    <td width="49%">Item Name:</td>
+    <td width="51%"><%= @stock.item_name %></td>
+  </tr>
+  <tr>
+    <td>Item Description:</td>
+    <td><%= @stock.item_description %></td>
+  </tr>
+  <tr>
+    <td>In Stock :<br/>
+    </td>
+    <td><%= @stock.item_quantity %></td>
+  </tr>
+<tr>
+    <td>Quantity to add:<br/>
+    </td>
+    <td><%=text_field_tag "quantity",nil,:size=>10 %></td>
+  </tr>
+  
+<tr>
+    <td>Item Unit Buying Price:</td>
+    <td><%= f.text_field :buying_rate ,:size=>5 %></td>
+  </tr>
+ 
+<tr>
+    <td>Change Item Unit Selling Price:</td>
+    <td><%= f.text_field  "item_unit_rate" ,:size=>5 %></td>
+  </tr>
+  
+  <td>Minimum Stock:</td>
+    <td><%=text_field :stock,:min_stock,:size=>5%></td>
+  </tr>
+  
+  <tr>
+    <td>Maximum Stock:</td>
+    <td><%=text_field :stock,:max_stock,:size=>5%></td>
+  </tr>
+  
+        <% fields_for :vendor do |vendor| %>
+     <tr><td> Vendor:</td><td> <%=collection_select :vendor,:name, @allvendors,:id,:name,:prompt=>"Please select"%>
+        </td>
+      </tr>
+      
+    <%end%>
+    <tr><td>
+  <%= submit_tag "Save" %>
+  </td></tr>
+  
+<%end%>
+</table>

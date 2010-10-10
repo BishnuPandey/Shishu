@@ -1,0 +1,35 @@
+<%= stylesheet_link_tag 'errors' %>
+<fieldset>
+    <legend>Add Vendor</legend>
+        <% form_for :vendor  do |form| %>
+        <%= error_messages_for :vendor %>
+        <table border="0" cellspacing="2" cellpadding="2">
+          <tr>
+            <td width="43%">Company Name: <br/></td>
+            <td colspan="2"><%= form.text_field :name %></td>
+          </tr>
+          <tr>
+            <td>Address: <br/></td>
+            <td colspan="2"><%= form.text_field :address %></td>
+          </tr>
+          <tr>
+            <td>Office Phone: </td>
+            <td colspan="2"><%= form.text_field :office_phone %></td>
+          </tr>
+          
+          <tr>
+            <td>Cell Phone: </td>
+            <td colspan="2"><%= form.text_field :cell_number %></td>
+          </tr>
+          <tr>
+            <td>Email: </td>
+            <td colspan="2"><%= form.text_field :email %></td>
+          </tr>
+          </table>
+          </fieldset>
+          <%= submit_tag "Save" %>
+         <% end %>
+         <br/>
+        
+   
+  

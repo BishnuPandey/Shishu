@@ -1,0 +1,5 @@
+<b><%= link_to 'Manage Admin',  :controller=>'admin/admins',:action=>'list' %> >> Add New Admin</b>
+	<%= error_messages_for :admin %>
+	<% form_for :admin,  :url=>{:action=>"create",:controller=>"/admin/admins"} do |f| -%>
+		<%= render_partial 'adminform'%>
+	<% end -%>

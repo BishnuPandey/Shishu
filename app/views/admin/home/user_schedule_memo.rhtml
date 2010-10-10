@@ -1,0 +1,23 @@
+  <%= stylesheet_link_tag "errors" %>
+  <%= stylesheet_link_tag "shishu" %>
+  <%= form_tag :action=>"user_schedule_memo"%>
+        
+             <table width="100%" align="center">
+             <tr>
+               <td valign="top" class="txt3">Memos</td>
+               </tr>
+               
+               <tr>
+                <td valign="top"> <%=@user_schedule.memo%> </td>
+          </tr>
+          
+          <tr>      
+          <td>
+          Add memo
+          <br/>
+          <%=text_area_tag :memo ,nil,:cols=>15,:rows=>2,:class=>"sel3"%>
+              <br/><%=submit_tag "Add"%></td>
+              </tr>
+              </table>
+         
+        </form>

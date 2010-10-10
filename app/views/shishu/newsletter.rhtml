@@ -1,0 +1,10 @@
+<%@newletter=Newsletter.find(:all,:order=>"created_at DESC")%>
+
+
+<% @newletter.each do|nl| %>
+    <span><%= link_to_function nl.subject,onclick="Effect.toggle('post_#{nl.id}','slide');return false;" %></span><br/>---------------------------- Posted on :<span><%=nl.created_at.strftime("%b %d %Y")%></span>
+    <div id="post_<%=nl.id%>" style="display:none">
+        <b><%= nl.body %></b>
+    </div>
+    <br/>
+<% end %>

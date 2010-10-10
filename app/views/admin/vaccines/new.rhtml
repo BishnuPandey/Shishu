@@ -1,0 +1,54 @@
+<h1>New vaccine</h1>
+<%= error_messages_for :vaccine %>
+<% form_for(:vaccine, :url => {:controller=>'admin/vaccines', :action=>'create'}) do |f| %>
+ 
+<table width="100%" border="0" cellspacing="3" cellpadding="2">
+  <tr>
+    <td>Vaccine Name</td>
+    <td class="pad-left" colspan="3"><%= f.text_field "vaccine_name" %></td>
+  </tr>
+  <tr>
+    <td>Vaccination Time In
+      <%timeformat=%w{Days Months Years}%>
+    </td>
+    <td class="pad-left"> <select id="vaccine_vaccination_time_format" name="vaccine[vaccination_time_format]">
+      <option value=""> - Select Time Format -</option>
+      <%timeformat.each do |r| %>
+      <option value='<%=r%>' 
+					<%if !@vaccine.nil? and !@vaccine.vaccination_time_format.blank? and @vaccine.vaccination_time_format==r%> 
+					selected="selected"
+					<%end%> ><%=r%> </option>
+      <%end%>
+    </select></td>
+    <td>Time From <%= f.text_field "vaccination_time_from" ,:size=>5%></td>
+    <td>To <%= f.text_field "vaccination_time_to" ,:size=>5%>[* Only NumbersAllowed]</td>
+  </tr>
+  <tr>
+    <td>Vaccine Description </td>
+    <td align="left" colspan="3"><%= f.text_area "vaccine_description" ,:rows=>10,:cols=>25%></td>
+  </tr>
+  <tr>
+    <td>
+      <%type=%w{Mouth Injection}%>
+Vaccine Type</td>
+    <td class="pad-left" colspan="3"><select id="vaccine_vaccine_type" name="vaccine[vaccine_type]">
+    <option value="">- Select Vaccine Type -</option>
+    <%type.each do |r| %>
+    <option value='<%=r%>' 
+					<%if !@vaccine.nil? and !@vaccine.vaccine_type.blank? and @vaccine.vaccine_type==r%> 
+					selected="selected"
+					<%end%> ><%=r%> </option>
+    <%end%>
+  </select></td>
+  </tr>
+  <tr>
+    <td>Vaccine Side Effects </td>
+    <td colspan="3"><%= f.text_area "vaccine_side_effects" ,:rows=>10,:cols=>25%></td>
+  </tr>
+  
+</table>
+<br/>
+<%= f.submit "save" %>
+<% end %>
+<br>
+<strong><%= link_to 'Back', :action=>'index',:controller=>"admin/vaccines" %> </strong>

@@ -1,0 +1,80 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">  
+  <tr>
+    <td width="21%">DOB</td>
+    <td width="79%"><%= @user.dob.strftime("%d %b %Y") %></td>
+  </tr>
+  <tr>
+    <td>Joined Date </td>
+    <td><%= @user.created_at.strftime('%b %d %Y') %></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><span class="action_stl"><%= link_to 'Edit',  :controller=>'admin/home',:action=>'edituser',:id=>@user.id %></span></td>
+  </tr>
+</table>
+
+<hr/>
+ <br/>
+
+ <div class="detailshd">Shishu's Vaccination History</div><br>
+ <% if !@user_vaccine.blank?%>
+<table width="100%" cellpading="1" cellspacing="1">
+    <tr class="hd">
+    <td width=5>S.N.</td>
+        <td >Vaccine Name</td>
+        <td>Given Date</td>
+        <td >Comment</td>
+		<td></td>
+    </tr>
+    <%cnt=1%>
+    <% @user_vaccine.each do|uv| %>
+        <tr class="<%= cycle("even","odd") %>">
+        <td><%= cnt %></td>
+         <td ><%= uv.vaccine.vaccine_name %></td>
+         <td width=200 ><%= uv.vaccine_date %></td>
+         <td width=350 ><%= uv.comment %></td>
+         <td width=100 ><%if @show_edit_link%><%=link_to "Delete",:action=>"delete_vaccine_record",:id=>uv.id,:user_id=>uv.user_id %><%end%></td>
+        </tr>
+        <%cnt=cnt+1%>
+    <% end %>
+</table>
+<%else%>
+<b>No Vaccination History</b>
+<%end%>
+
+<br/>
+
+<div class="detailshd">
+  Add Vaccination detail of :<%="#{@user.fname.capitalize} "%>
+ 
+  <%= link_to_function "<b>Add</b>", "Element.toggle('update_detail');"%>
+  </div> <br/>
+        <div id="update_detail"  style="border:solid 1px #CCCCCC;display:none;padding:10px; background:#E7E7E7;">
+            <%=error_messages_for :vaccination%>
+            <%= form_tag%>
+            <%=hidden_field :vaccination,:user_id,:value=>@user.id%>
+                 <table width="100%" align="center" cellspacing="3" cellpadding="2">
+                 <tr>
+                    <td valign="top">Vaccine Name:</td>
+                    <td valign="top">
+                      <%=collection_select :vaccination,:vaccine_id, @vaccines=Vaccine.find(:all),:id,:vaccine_name,{},{:class=>"sel1"}%></td>
+                    <td valign="top">Vaccination Date:</td>
+                    <td valign="top"><%=date_select :vaccination,:vaccine_date, :use_short_month=>true%></td>
+                    <td valign="top">Comment:</td>
+                    <td><%=text_area :vaccination,:comment ,:cols=>20,:rows=>2,:class=>"sel2"%></td>
+                  <td></td>
+                  </tr>
+                 <tr>
+                   <td colspan="5" valign="top">&nbsp;</td>
+                   <td style="padding:0 0 0 25px;"><%=submit_tag "Add"%></td>
+                   <td>&nbsp;</td>
+                 </tr>
+                  </table>
+
+             
+            </form>
+        </div>
+       
+ <br/> <br/>
+ 
+ 

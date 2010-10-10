@@ -1,0 +1,15 @@
+  <% form_tag url_for(:action => 'create') do %>
+
+ 	<div class="rounded1">
+ 	<div class="roundCont">
+ 	<%=image_tag("/images/forgot_passord_bg.jpg", :alt=>"forgot your password?", :class=>"forgPassImg")%>
+ 	<h1>Forgot your password? We can help you recover it.</h1>
+ 	<p>
+	  <label for="login" class="bold">Email ID:</label>
+      <%= text_field_tag :login, "", :size => 30, :class=>"skinTxtBox", :tooltipText=>"Please type in your login email ID" %></p>
+    
+      <p><label for="button"> </label>
+     &nbsp; <%= submit_tag 'Submit', :class=>"forgPass" %></p>
+    </div>   
+    </div>
+  <% end %>

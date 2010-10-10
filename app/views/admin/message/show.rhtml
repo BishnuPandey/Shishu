@@ -1,0 +1,33 @@
+<h2>Message from parents of <%="#{@message.user.fname} #{@message.user.lname}"%></h2>
+
+Date:<%= @message.created_at.strftime('%d %b,%Y') %> <br/>
+Shishu Name:  <%= link_to "#{@message.user.fname} #{@message.user.lname}",:controller=>'admin/home', :action=>'userdetail',:id=>@message.user_id %><br/>
+	    Subject <%=  h(@message.subject) %><br/>
+	   <%= h @message.body %><br/>
+	   <br/> 
+    		
+    		
+    		<%= link_to 'Delete this message',{:controller=>'admin/message', :action=>'delete',:id=>@message.id},:confirm => 'Are you sure to delete ?' %>
+    	
+
+<hr />
+Reply for this message
+
+<%form_tag do  %>
+<%=hidden_field_tag "user_id" ,@message.user_id%>
+<%=hidden_field_tag "id" ,@message.id%>
+<table>
+<tr>
+<td>Subject:</td>
+<td><%=text_field_tag :subject ,"Re:"+@message.subject %></td>
+</tr>
+<tr>
+<td>Message:</td>
+<td><%=text_area_tag :body%></td>
+
+
+</tr>
+
+</table>
+<%=submit_tag 'Send'%>
+<%end%>

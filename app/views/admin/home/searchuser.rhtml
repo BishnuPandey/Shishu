@@ -1,0 +1,14 @@
+
+
+<% form_tag :action => "searchuser"  do %>
+    <fieldset>
+        <legend>User Search :</legend>User Code:<%= text_field_tag "keywordpepole", params[:keywordpeople] %>
+        <br/>First Name:<%= text_field_tag "fname", params[:fname] %>
+        <br/>Last Name: <%= text_field_tag "lname", params[:lname] %>
+        <br/>Gender:    <%=radio_button_tag :gender, "Male",params[:gender] == 'Male',:id => "Male"%>Male
+                        <%=radio_button_tag :gender, "Female",params[:gender] == 'Female',:id => "Female"%>Female
+        <br/>City: &nbsp;  &nbsp;<%= text_field_tag 'city',params[:city] %>
+        <br/><%= submit_tag "Search", :class => "submit" %>
+    </fieldset>
+<% end %>
+==================================================================

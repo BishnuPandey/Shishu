@@ -1,0 +1,11 @@
+<%=link_to "Back to Ecard List", :action=>'list'%>
+<%if @ecard%>
+<br />
+Subject:<b><%=@ecard.subject%><br /></b><br />
+<%unless @ecard.file_name.blank?%>
+    <%=image_tag "ecards/#{@ecard.file_name}" %><br />
+    
+<%end%> 
+<br />
+<%=@ecard.body%>
+<%end%>

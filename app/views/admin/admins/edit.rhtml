@@ -1,0 +1,7 @@
+<b><%= link_to 'Manage Admin',  :controller=>'admin/admins',:action=>'list' %> >> Edit Admin</b>
+	<br><%= error_messages_for :admin %><br>
+	<% form_for :admin,  :url=>{:action=>"edit",:controller=>"/admin/admins",:id=>@admin} do |f| -%>
+		Note: Please Leave Password and Password Conformation field blank If you need not change old one. 
+		<%= render_partial 'adminform'%>
+	<% end -%>
+

@@ -1,0 +1,202 @@
+<script>
+function fillparentinfo(id)
+{
+
+ if(document.getElementById(id).checked)
+ {
+          document.getElementById('member_address').value=document.getElementById('user_birth_address').value;
+          document.getElementById('member_country').value=document.getElementById('user_birth_country').value;
+          document.getElementById('member_city').value=document.getElementById('user_birth_city').value;
+ }
+ else
+ {
+        document.getElementById('member_address').value='';
+          document.getElementById('member_country').value='Nepal';
+          document.getElementById('member_city').value='';
+ 
+ }
+ 
+}
+</script>
+       
+<%= stylesheet_link_tag 'errors' %>
+<fieldset>
+    <legend>Shishu Details</legend>
+        <% form_for :user  do |form| %>
+        <%= error_messages_for :user %>
+        <table width="53%" border="0" cellspacing="2" cellpadding="2">
+           <tr>
+            <td width="43%">Shishu Code : </td>
+            <td colspan="2"><%= form.text_field :code,:size=>8 %> <span style="color:red;font-size:15px;">*</span></td>
+          </tr>
+          <tr>
+            <td width="43%">Shishu Name: <br/></td>
+            <td colspan="2"><%= form.text_field :fname %>  <span style="color:red;font-size:15px;">*</span></td>
+          </tr>
+
+          <tr>
+            <td>Date of Birth:  <br/></td>
+            <td colspan="2"><%= form.date_select :dob,:start_year =>1950,:end_year=>Time.now.year  %>
+            <span style="color:red;font-size:15px;">*</span>
+            </td>
+          </tr>
+          <tr>
+            <td>Time of Birth: <br/></td>
+            <td colspan="2"><%= form.time_select :tob %></td>
+          </tr>
+          <tr>
+            <td>Sex: <br /></td>
+            <td width="15%"><%= form.radio_button :sex,'M' %> Male </td>
+            <td width="42%"><%= form.radio_button :sex,'F' %>Female  
+            <span style="color:red;font-size:15px;">*</span></td>
+          </tr>
+          <tr>
+            <td>Height: <br/></td>
+            <td colspan="2"><%= form.text_field :height,:size=>5 %>cms</td>
+          </tr>
+          <tr>
+            <td>Weight: <br/></td>
+            <td colspan="2"><%= form.text_field :weight,:size=>5 %>kgs</td>
+          </tr>
+          <tr>
+            <td>Birth Address: <br/></td>
+            <td colspan="2"><%= form.text_field :birth_address %></td>
+          </tr>
+          <tr>
+            <td>Birth Country: <br /></td>
+            <td colspan="2"><%= form.collection_select :birth_country, @count=Country.find(:all),:id,:country_name %></td>
+          </tr>
+          <!--tr>
+            <td>State:  <br/></td>
+            <td colspan="2"><%#= related_collection_select :user,:birth_state, [:user, :birth_country],@state=State.find(:all),:state_name,:state_name,:country_id,{:include_default_state_select_text=>true} %></td>
+          </tr-->
+          <tr>
+            <td>Birth City: </td>
+            <td colspan="2"><%= form.text_field :birth_city %></td>
+          </tr>
+        </table>
+</fieldset>
+
+        
+  
+   <fieldset>
+        <legend>Parent...</legend>
+ <%=check_box_tag "parent_address_info","1",nil,{:onClick=>"fillparentinfo(this.id);"}%>[ address same as baby]
+        <%= error_messages_for :member %>
+        <% fields_for :member do |member| %>
+        <table width="53%" border="0" cellspacing="2" cellpadding="2">
+          
+          <tr>
+             <td>Address:  </td>
+             <td><%= member.text_field :address %></td>
+           </tr>
+           <tr>
+           
+           
+             <td> Country: <br/></td>
+             <td>
+             <%= member.collection_select :country, @count=Country.find(:all),:id,:country_name %>
+            </td>
+           </tr>
+           <!--tr>
+             <td>State:  <br/></td>
+             <td>
+             <%#= related_collection_select :member,:state, [:member, :country],@state=State.find(:all),:state_name,:state_name,:country_id,{:include_default_state_select_text=>true} %>
+            </td>
+           </tr-->
+           <tr>
+             <td>City:  <br/></td>
+             <td><%= member.text_field :city %></td>
+           </tr>
+           
+          
+            
+            <tr>
+             <td>Home Phone: <br/></td>
+             <td><%= member.text_field :home_phone %></td>
+           </tr>
+            <tr>
+             <td colspan="2"><hr/></td>
+            
+           </tr>
+           <tr>
+             <td width="42%">Father Full Name: <br/></td>
+             <td width="58%"><%= member.text_field :father_full_name %> <span style="color:red;font-size:15px;">*</span></td>
+           </tr>
+           <tr>
+             <td>Father email: <br/></td>
+             <td><%= member.text_field :father_email%></td>
+           </tr>
+           <tr>
+             <td>Father Cell Phone: <br/></td>
+             <td><%= member.text_field :father_cell_phone %></td>
+           </tr>
+            <tr>
+             <td>Father Office Phone: </td>
+             <td><%= member.text_field :father_office_phone %></td>
+           </tr>
+           <tr>
+             <td colspan="2"><hr/></td>
+            
+           </tr>
+            <tr>
+             <td>Mother Full Name: <br/></td>
+             <td><%= member.text_field :mother_full_name %> <span style="color:red;font-size:15px;">*</span></td>
+           </tr>
+            
+            <tr>
+             <td>Mother email: <br/></td>
+             <td><%= member.text_field :mother_email %></td>
+           </tr>
+           <tr>
+             <td>Mother Cell Phone: <br/></td>
+             <td><%= member.text_field :mother_cell_phone %></td>
+           </tr>
+          
+          
+          
+          
+           <tr>
+             <td>Mother Office Phone: </td>
+             <td><%= member.text_field :mother_office_phone %></td>
+           </tr>
+           <tr>
+             <td>&nbsp;</td>
+             <td>&nbsp;</td>
+           </tr>
+         </table>
+         </fieldset>
+         <% end %>
+<% if false %>       <fieldset><% end %>
+<% if false %>     <legend>Login Detail</legend><% end %>
+<% if false %>     <table width="53%" border="0" cellspacing="2" cellpadding="2"><% end %>
+<% if false %>       <tr><% end %>
+<% if false %>         <td width="43%">Login:  </td><% end %>
+<% if false %>         <td width="57%"><%= form.text_field :login %> <span style="color:red;font-size:15px;">*</span></td><% end %>
+<% if false %>       </tr><% end %>
+<% if false %>       <tr><% end %>
+<% if false %>         <td> Email: <br/></td><% end %>
+<% if false %>         <td><%= form.text_field :email %> <span style="color:red;font-size:15px;">*</span><% end %>
+<% if false %>         <br/>[* for notification and communication ]</td><% end %>
+<% if false %>       </tr><% end %>
+<% if false %>       <tr><% end %>
+<% if false %>         <td>Password: <br/></td><% end %>
+<% if false %>         <td><%= form.password_field :password %> <span style="color:red;font-size:15px;">*</span></td><% end %>
+<% if false %>       </tr><% end %>
+<% if false %>       <tr><% end %>
+<% if false %>         <td>Password Confirmation:</td><% end %>
+<% if false %>         <td><%= form.password_field :password_confirmation %> <span style="color:red;font-size:15px;">*</span></td><% end %>
+<% if false %>       </tr><% end %>
+<% if false %>     </table><% end %>
+<% if false %>     <br/><% end %>
+<% if false %></fieldset><% end %>
+     <fieldset>
+     <legend>Comment</legend>
+     <%= form.text_area :comment,:rows=>10 %><br>
+     </fieldset>
+          <%= submit_tag "Save" %>
+         <% end %>
+         <br/>
+        
+   
+  

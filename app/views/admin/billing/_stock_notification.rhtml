@@ -1,0 +1,12 @@
+
+<%@stocks.each do |st|%>
+<% if st.item_quantity<=0 %>
+<font color='maroon'>
+Stock of <%=st.item_name %> is empty. <br />
+</font>
+<%elsif st.item_quantity<=st.min_stock+1 %>
+<font color='maroon'>
+Stock of <%=st.item_name %> is low(remaining:<%=st.item_quantity%>, min stock defined is <%=st.min_stock%>)<br />
+</font>
+<%end%>
+<%end%>

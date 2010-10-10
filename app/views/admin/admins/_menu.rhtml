@@ -1,0 +1,25 @@
+<%= link_to_unless_current 'Shishu',  :controller=>'/admin/home',:action=>'index' %> | 
+<%if (current_admin.role=='SUPER'or current_admin.role=='SUPERUSER')%>
+<%= link_to_unless_current 'Manage Admin',  :controller=>'/admin/admins',:action=>'list' %> | 
+<%= link_to_unless_current 'Sales Report',  :controller=>'/admin/report',:action=>'index' %> | 
+<%= link_to_unless_current 'Manage Stock',  :controller=>'/admin/stock',:action=>'index' %> | 
+<%= link_to_unless_current 'Manage Vendor',  :controller=>'/admin/vendor'%> | 
+<%= link_to_unless_current 'Page Management',  :controller=>'/admin/cms'%> |
+<%#= link_to_unless_current 'Messages',  :controller=>'/admin/message'%>   
+<%end%> 
+<%= link_to_unless_current 'Billing',  :controller=>'/admin/billing',:action=>'index' %> | 
+<%= link_to_unless_current 'Shishu Report',  :controller=>'/admin/report',:action=>'member_report' %> | 
+<%= link_to_unless_current 'Manage vaccine',  :controller=>'/admin/vaccines',:action=>'index' %> | 
+
+<%= link_to_unless_current 'E-cards',  :controller=>'/admin/ecard',:action=>'list' %> | 
+
+
+
+<%= link_to_unless_current 'Logout',  :controller=>'/admin/sessions',:action=>'destroy' %> 
+
+
+<% if logged_in? %>
+                 <b class="login" >logged in :<%=current_admin.login%>
+                    </b>
+                    <% end %>
+         

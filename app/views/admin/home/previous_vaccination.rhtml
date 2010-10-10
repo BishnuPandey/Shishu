@@ -1,0 +1,56 @@
+<%
+year_array=Array.new
+month_array=Array.new
+day_array=Array.new
+for i in 0..15
+ year_array<<Time.now.year-i
+ end
+ for i in 1..12
+  month_array<<i
+ end
+for i in 1..31
+ day_array<<i
+end 
+%>
+
+<%=form_tag %>
+<%=hidden_field_tag 'user_id', @user.id%>
+
+<% @vaccine.each do|vac| %>
+    <%= check_box_tag "vaccine_id[]",value=vac.id,checked=false %>
+    <%=vac.vaccine_name%>
+    
+  <select id="vaccine_date_year_<%=vac.id.to_s%>" name="vaccine_date_year_<%=vac.id.to_s%>" >
+			
+			<%year_array.each do |r| %>
+				<option value='<%=r%>' >
+					<%=r%>
+				</option>
+			<%end%>
+		</select>
+		 <select id="vaccine_date_month_<%=vac.id.to_s%>" name="vaccine_date_month_<%=vac.id.to_s%>" >
+			
+			<%month_array.each do |r| %>
+				<option value='<%=r%>' >
+					<%=r%>
+				</option>
+			<%end%>
+		</select>
+		 <select id="vaccine_date_day_<%=vac.id.to_s%>" name="vaccine_date_day_<%=vac.id.to_s%>" >
+			
+			<%day_array.each do |r| %>
+				<option value='<%=r%>' >
+					<%=r%>
+				</option>
+			<%end%>
+		</select>
+ 
+   
+    Other Details:
+    <%= text_area_tag "other_detail_#{vac.id}"%><br/>
+    
+<% end %>
+        <%=submit_tag 'submit'%>
+ </form>
+<%=link_to "Skip" ,:action=>"userdetail",:id=>@user.id%>
+

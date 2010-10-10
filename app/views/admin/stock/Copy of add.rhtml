@@ -1,0 +1,106 @@
+<script>
+function othervendorname(id)
+{
+
+ if(document.getElementById(id).checked)
+ {
+ document.getElementById('vendor_name').value=''
+  document.getElementById('vendor_name').style.display="none";
+ 
+   document.getElementById('other_vendor_name').style.display="block";
+   document.getElementById('other_vendor_name').value='';
+  
+ }
+ else
+ {
+  
+     document.getElementById('other_vendor_name').style.display="none";
+   document.getElementById('other_vendor_name').value=''
+    document.getElementById('vendor_name').style.display="block";
+     document.getElementById('vendor_name').value='';
+    
+ }
+}
+</script>
+
+<h1>Add New Stock Item</h1>
+<%= error_messages_for :stock %>
+
+<%=form_tag %>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="19%"><strong>Item Type:<br/>
+    </strong></td>
+    <td width="81%"><%=radio_button :stock,:item_type,"vaccine",{:checked=>@status_vaccine,:onClick=>"Element.hide('other');Element.show('vaccine');"} %>Vaccine <%=radio_button :stock,:item_type,"other",{:checked=>@status_other,:onClick=>"Element.hide('vaccine');Element.show('other');"} %>Other</td>
+  </tr>
+  <tr>
+    <td><strong>Item Name:</strong></td>
+    <td><div id="other" ><%=text_field_tag :item_name_other,params[:item_name_other]%></div>
+      <div id="vaccine" style="display:none;"><%=collection_select :stock,:item_name, @vaccines=Vaccine.find(:all),:vaccine_name,:vaccine_name%>[* Any Vaccine Not in the list Please add first in Manage Vaccine section]</div></td>
+  </tr>
+  <tr>
+    <td><strong>Item Description:</strong></td>
+    <td><%=text_area :stock,:item_description ,:cols=>20,:rows=>5%></td>
+  </tr>
+  <tr>
+    <td><strong>Item Quantity:</strong></td>
+    <td><%=text_field :stock,:item_quantity ,:size=>10%></td>
+  </tr>
+  <tr>
+    <td><strong>Item Unit Buying Price:</strong></td>
+    <td><%=text_field :stock,:buying_rate,:size=>5%></td>
+  </tr>
+  
+  <tr>
+    <td><strong>Item Unit Selling Price:</strong></td>
+    <td><%=text_field :stock,:item_unit_rate,:size=>5%></td>
+  </tr>
+  <tr>
+    <td><strong>Item Unit Type</strong></td>
+    <td><%=text_field :stock,:item_unit_type,:size=>5%></td>
+  </tr>
+  <tr>
+    <td><strong>Minimum Stock::</strong></td>
+    <td><%=text_field :stock,:min_stock,:size=>5%></td>
+  </tr>
+  <tr>
+    <td><strong>Maximum Stock:</strong></td>
+    <td><%=text_field :stock,:max_stock,:size=>5%></td>
+  </tr>
+    <%= error_messages_for :vendor %>
+        
+        <% fields_for :vendor do |vendor| %>
+     <tr><td> Vendor:</td><td> <%=collection_select :vendor,:name, @allvendors,:id,:name%>
+      <input type='text' id='other_vendor_name' name='other_vendor_name' style='display:none' />
+     
+   
+        <%=check_box_tag 'other_vendor','new_vendor',nil,{:onClick=>'othervendorname(this.id);'}%>Not in the list
+      </td>
+      </tr>
+      <tr>
+      <td>Status:</td>
+      <td><%=vendor.select :status,['Paid','Not Paid']%></td>
+      </tr>
+    <%end%>
+    
+</table>
+    <br/>
+        <br/>
+    
+    
+    
+    <%=submit_tag "Save"%>
+    </form>
+    <%if !@stock.nil?%>
+    <%if !@stock.item_type.blank? and @stock.item_type=="vaccine"%>
+    <script>
+
+
+    </script>
+    <%else%>
+    <script>
+Element.hide('vaccine');
+Element.show('other');
+    </script>
+    <%end%>
+    <%end%>

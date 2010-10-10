@@ -1,0 +1,16 @@
+<%= link_to 'Home',  :controller=>'shishu',:action=>'home' %> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<%#= link_to 'Newsletters ', :controller=>'shishu',:action=>'newsletter' %> 
+<%if !logged_in_user?%> 
+<%= link_to 'Login',  :controller=>'shishu',:action=>'new' %>  
+<%else%>
+<%= link_to "My Baby's Detail",:action=>'index',:controller=>"shishu" %> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; 
+<%=link_to 'Billing Detail',:controller=>'bill' %> &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;
+<%= link_to "Change Password",:action=>'edit',:controller=>"accounts" %> &nbsp;&nbsp;&nbsp;|  &nbsp;&nbsp;&nbsp;
+<%= link_to 'Logout',  :controller=>'shishu',:action=>'destroy' %> 
+<%end%>
+
+<% @page=PageContent.find(:all,:conditions=>["status=?","Show"])%>
+<%@page.each do |page|%>
+&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<%=link_to page.page_name,:controller=>'shishu',:action=>"contents",:id=>page.id %>
+<%end%> 

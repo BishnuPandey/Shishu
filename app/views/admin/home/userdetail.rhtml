@@ -1,0 +1,72 @@
+
+<div class="detailshd">Shishu : <%="#{@user.fname.capitalize} "%></div>
+ 	
+<%=render :partial=>'/shishu/shishu_info'%>
+
+<%= render :partial=> "/shishu/next_visit_detail"%>
+<br/>   
+<div class="detailshd">
+Update Vaccination Schedule of <%="#{@user.fname.capitalize}"%>
+<%= link_to_function "<b>Add</b>", "Element.toggle('schedule_update_detail');"%></div><br/>
+    <div id="schedule_update_detail" style="border:solid 1px #CCCCCC;display:none;padding:10px; background:#E7E7E7;">
+        <%
+        year_array=Array.new
+        month_array=Array.new
+        day_array=Array.new
+        for i in 0..15
+         year_array<<Time.now.year+i
+         end
+         for i in 1..12
+          month_array<<i
+         end
+        for i in 1..31
+         day_array<<i
+        end 
+        #mth = Array.new
+        #mth = [ 1=>'Jan', 2=>'Feb', 3=>'Mar', 4=>'Apr', 5=>'May', 6=>'Jun', 7=>'Jul', 8=>'Aug', 9=>'Sep', 10=>'Oct', 11=>'Nov', 12=>'Dec' ]
+        #mth.sort
+        #mth.sort
+        mth = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        #mth = {'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'}
+        %>
+        <%= form_tag :action=>"add_vaccine_schedule"%>
+        
+        <%=hidden_field_tag :next_visit_user_id,@user.id%>
+             <table width="100%" align="center">
+             <tr>
+               <td valign="top">Next Visit Date></td>
+                <td valign="top"> <select id="schedule_date_year" name="schedule_date_year" class="sel1">
+            			
+            			<%year_array.each do |r| %>
+            				<option value='<%=r%>'>
+            					<%=r%>
+            				</option>
+            			<%end%>
+            		</select>
+            		 <select id="schedule_date_month" name="schedule_date_month" class="sel1">
+            			
+            			<%month_array.each do |r| %>
+            				<option value='<%=r%>' <%if Time.now.month==r%> selected="selected"<%end%> >
+            					<%=mth[r-1]%>
+            				</option>
+            			<%end%>
+            		</select>
+            		 <select id="schedule_date_day" name="schedule_date_day" class="sel1">
+            			
+            			<%day_array.each do |r| %>
+            				<option value='<%=r%>' <%if Time.now.day==r%> selected="selected"<%end%>>
+            					<%=r%>
+            				</option>
+            			<%end%>
+            		</select> [yy/mm/dd]
+             </td>
+                <td valign="top">Comment:</td>
+                <td><%=text_area_tag :next_visit_comment ,nil,:cols=>20,:rows=>2,:class=>"sel2"%></td>
+              <td> <%=submit_tag "Add"%></td>
+              </tr>
+              </table>
+         
+        </form>
+    </div>
+<hr/>
+<p><%=link_to "Print Detail", {:controller=>"/admin/home" ,:action=>"userdetail_print",:id=>@user.id},:popup => ['Shishu detail', 'height=800,width=800']%></p>

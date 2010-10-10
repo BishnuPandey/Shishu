@@ -1,0 +1,34 @@
+<%= link_to_unless_current 'Manage Stock',  :controller=>'/admin/stock'%> >> Stock Vendor Details >> <%=@stock_vendor_details[0].stock.item_name%>
+
+ <table width="95%">
+
+     <tr class="hd">
+         <td >Date</td>
+         <td >Quantity</td>
+         <td >rate</td>
+         <td >Total Amount</td>
+         <td >Vendor Name</td>
+         <td>Cell Phone</td>
+         <td >Phone</td>
+         <td >Address</td>
+         <td >Email</td>
+     </tr>
+     <% @stock_vendor_details.each do |svd| %>
+
+         <tr class="<%=cycle('odd','even')%>">
+             <td ><%= svd.created_at.to_date %></td>
+             <td ><%= svd.quantity %></td>
+             <td ><%= svd.rate %></td>
+             <td ><%= svd.total %></td>
+             <td ><%= svd.vendor.name %></td>
+             <td ><%= svd.vendor.cell_number %></td>
+             <td><%= svd.vendor.office_phone %></td>
+             <td ><%= svd.vendor.address %></td>
+             <td ><%= svd.vendor.email %></td>
+
+         </tr>
+     <% end %>
+ </table>
+
+
+ 

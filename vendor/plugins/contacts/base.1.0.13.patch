@@ -1,0 +1,22 @@
+--- contacts-1.0.13/lib/contacts/base.rb	2008-09-02 09:24:13.000000000 -0700
++++ contacts-1.0.13.mod/lib/contacts/base.rb	2008-12-18 16:15:25.000000000 -0800
+@@ -136,6 +136,9 @@
+       cookies = parse_cookies(resp.response['set-cookie'], cookies)
+       forward = resp.response['Location']
+       forward ||= (data =~ /<meta.*?url='([^']+)'/ ? CGI.unescapeHTML($1) : nil)
++	if (not forward.nil?) && URI.parse(forward).host.nil?
++		forward = url.scheme.to_s + "://" + url.host.to_s + forward
++	end
+       return data, resp, cookies, forward
+     end
+     
+@@ -151,6 +154,9 @@
+       data = uncompress(resp, data)
+       cookies = parse_cookies(resp.response['set-cookie'], cookies)
+       forward = resp.response['Location']
++	  if (not forward.nil?) && URI.parse(forward).host.nil?
++		forward = url.scheme.to_s + "://" + url.host.to_s + forward
++	  end
+       return data, resp, cookies, forward
+     end
+     

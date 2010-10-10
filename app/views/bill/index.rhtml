@@ -1,0 +1,84 @@
+<h1>Billing Report Till Date</h1>
+<hr/>
+<% if @billings.blank?%>
+No Transaction with Clinic till the date.
+<%else%>
+Bills By Date:
+<hr/>
+<div>
+<%count=0%>
+
+<%@billings.each do |billentry|%>
+<%= count+=1%>. 
+<em><%= billentry.created_at.strftime("%d %b, %y")%></em> | 
+<%=link_to_function "View Bill details in this date","Element.toggle('#{billentry.id}');"%><br/>
+<div id="<%=billentry.id%>" style="display:none;" >
+
+<table width="100%" border="1" cellspacing="3" cellpadding="2">
+
+    <tr class="hd">
+        <td >S.N.</td>
+        <td >Item Name</td>
+        <td >Qty</td>
+        <td >Rate(Rs)</td>
+        <td >Total Amount(Rs)</td>
+
+    </tr>
+    <%cnt=0
+    subtotal=0.0
+    %>
+<%billentry.billing_details.each do|bd|%>
+   
+
+ <tr class="<%= cycle("even","odd")%>">
+     <td ><%= cnt+=1 %></td>
+     <td><%= bd.stock.item_name %></td>
+
+     <td><%= bd.quantity %></td>
+
+     <td><%= bd.rate %></td>
+
+     <td><%= bd.total_amount %></td>
+
+ </tr>
+            <%subtotal+= bd.total_amount%>
+<%end%>
+
+<tr>
+ <td >&nbsp;</td>
+ <td >&nbsp;</td>
+ <td >&nbsp;</td>
+ <td >Total</td>
+ <td><b><%= subtotal %></b></td>
+    <tr>
+     <td>&nbsp;</td>
+     <td >&nbsp;</td>
+     <td >&nbsp;</td>
+     <td >Discount</td>
+     <td><b><%= discount=(billentry.discount*subtotal)/100 %>  </b></td>
+    </tr>
+    <tr>
+     <td >&nbsp;</td>
+
+ <td >&nbsp;</td>
+
+
+ <td >&nbsp;</td>
+        <td >Grand Total</td>
+        <td >  <b><%= subtotal-discount %>  </b></td>
+    </tr>
+    <tr>
+        <td >Comments</td>
+        <td><%= billentry.comment %></td>
+    </tr>
+</tr>
+ 
+                
+ 
+ </table>
+ 
+</div>
+
+<%end%>
+</div>
+<%end%>

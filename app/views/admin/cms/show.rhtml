@@ -1,0 +1,15 @@
+<h3><%=@page.page_title%></h3>
+    <div class="form_row">
+        <b>Page Name </b> <%= @page.page_name %>
+    </div>
+    <div class="form_row">
+        <b>Page Title </b> <%= @page.page_title %>
+    </div>
+   
+    <div class="form_row">
+        <b>Page Content </b> <%=@page.page_content %>
+    </div>
+<div class="form_row">
+    <%= link_to 'Edit', :controller=>'admin/cms', :action=>'edit', :id=>@page.id %> |
+    <%= link_to 'Back',   :controller=>'admin/cms', :action=>'index' %>
+</div>

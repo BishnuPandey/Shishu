@@ -1,0 +1,346 @@
+body,div,p,img,ul,li,fieldset,h1,h2,h3,h4,h5,h6,span{
+    margin:0;
+    padding:0;
+    }    
+body{
+    font:62.5% 'Trebuchet MS',Arial, verdana;
+    color:#707070;
+    background:#fff;
+    }      
+h1,h2,h3{
+    font-family:'Georgia', Times New Roman;
+    font-weight:normal;
+    }
+h1{
+    font-size:14px;
+    color:#000000;
+    font-weight:bold;
+}    
+h4,h5,h6{
+    font-family:'Trebuchet MS', verdana;
+    font-weight:normal;
+    }    
+img{ border:none;
+}
+a{  
+    color:#000;
+    text-decoration:none;
+    }
+a:hover{
+    color:#707070;
+    }
+strong{
+    background:#d6d4d8;
+    font-size:12px;
+    padding:5px;
+    font-weight:normal;
+    }
+    
+b.bold{ font-size:1.2em; color:#CC0000; margin:5px 0 0 0;}  
+   
+   /* css for defaults Tag*/
+      
+.flaNotice{
+    background:#C4E5C4;
+    color:#009D00;
+    margin:20px 0;
+    }    
+/* clears floats */
+.clear { clear:both; height:1px; overflow:hidden; }
+
+/* Better Float Hack */
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    }
+.clearfix {
+    display: inline-block;
+    }
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+
+
+.wrapper{
+    margin:0 auto;
+    }
+#header,#header1, .admLogin, .shishuNav, .container, strong, .flaNotice, .svc{
+
+    }
+.shishuNav, .container, strong, .flaNotice, .svc{
+
+    font-size:1.2em;
+    }
+ .shishuNav a{ color:#FFCC00;}
+.shishuNav a:hover{ color:#fff;}   
+.strong1
+{
+   -moz-border-radius-topright:7px;
+    -moz-border-radius-topleft:7px;
+    float:left;
+    margin-right:10px;
+}
+
+#div_search_shishu_name
+{
+ width:100px;
+    float:left;
+}
+
+#div_search_shishu_code
+{
+ width:100px;
+    float:left;
+}
+
+
+
+#header{
+    height:60px;
+    line-height:60px;
+    background:#BC2024;
+    }
+#header h1{
+    font-size:2.2em;
+    color:#fff;
+    font-style:italic;
+    margin:0 0 0 25px;
+    } 
+#header1{
+    height:100px;
+    line-height:100px;
+background:url(/images/bg.jpg) repeat-x left top;
+    }  
+#header1 h1{
+    font-size:3em;
+    color:#fff;
+    margin:0;
+    padding:0 0 0 140px;
+    background:url(/images/logo1.jpg) no-repeat 140px 10px;
+    text-align:center;
+    }
+#header1 h2{
+    background:url(/images/logo1.jpg) no-repeat right 10px;
+    float:right;
+    width:100px;
+    height:100px;
+    margin-right:140px;
+    }     
+.admLogin{
+    float:right;
+    padding:8px;
+    margin:0 15px 0 0;
+    width:200px;
+    font-size:1.4em;
+    font-weight:bold;
+    text-align:center;
+    background:#FFDA6C;
+    } 
+.shishuNav{
+    background:#6C0000;
+    margin:0 0 3px 0;
+    color:#FFFFFF;
+    }
+     
+.shishuNav, .container, .flaNotice{
+    padding:10px 20px;
+    font-size:1.2em; 
+    font-weight:bold;
+    } 
+.container{
+    background:#f1f1f1;
+    } 
+.container h4{
+    font-size:14px;
+    font-weight:bold;
+    color:#c71217;  
+    } 
+.container p{
+    width: 300px;
+    clear: left;
+    margin: 0;
+    padding: 5px 0 8px 0;
+    padding-left: 155px; /*width of left column containing the label elements*/
+    height: 1%;
+    text-align:justify;
+    }
+.container label{
+    font-weight: bold;
+    float: left;
+    margin-left: -155px; /*width of left column*/
+    width: 150px; /*width of labels. Should be smaller than left column (155px) to create some right margin*/
+    }
+* html .threepxfix{
+    margin-left: 3px;
+    }
+.admLogCont{
+    width:400px;
+    margin:0 auto;
+    }
+.hd{
+    background:#7F1D0C;
+    color:#FFFFFF;
+   }
+.hd a{
+   color:#FFFFFF;
+   text-decoration:none;
+   } 
+.hd a:hover{
+   color:#FFFFFF;
+   text-decoration:underline;
+   }
+.hd td{
+   text-align:center;
+   padding:5px 10px;
+   }
+.bld_hd{
+    font-weight:bold;
+    color:#000000;
+    }
+.action_stl{
+    padding:0px 10px;
+    }
+.login{
+    padding:5px 5px;
+    color:#fff;
+    font-size:10px;
+    }
+.odd{
+    background:#E1E1E1;
+    text-align:center;
+    padding:5px 10px;
+    }    
+.even{
+    background:#C7C9CE;
+    text-align:center;
+    padding:5px 10px;
+    }  
+textarea{
+    width:450px;
+    height:100px;
+    margin:6px 25px;    
+    }  
+legend{
+    color:#c71217;
+    font-weight:bold;
+    font-size:14px;
+    }  
+.svc{
+    background:#C8C8C8;
+    padding:20px;
+    margin-top:40px;
+    }  
+.svc ul{
+    margin:8px 0 0 0;
+    padding:0 0 0 14px;     
+    }  
+.svc li{
+    padding:0 0 0 5px;
+    margin:0;
+    font-weight:normal;
+    font-size:12px;
+    line-height:16px;
+    font-family:Arial, Verdana;
+    }    
+.footer{
+    font-size:12px;
+    font-weight:normal;
+    text-align:center;
+    margin-top:10px;
+    }
+.pad-left{
+    padding-left:27px;
+    }
+    
+    
+    		
+.pagination {
+    padding: 3px;
+    margin: 3px;
+  }
+  
+ .pagination  {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 1px solid #eee;
+    color: #38385E;
+  }
+  .pagination a {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 1px solid #aaaadd;
+    text-decoration: none;
+    color: #000099;
+  }
+  .pagination a:hover, .pagination a:active {
+    border: 1px solid #000099;
+    color: #000;
+  }
+  .pagination span.current {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 1px solid #000099;
+    font-weight: bold;
+    background-color: #000099;
+    color: #FFF;
+  }
+  .pagination span.disabled {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 1px solid #eee;
+    color: #ddd;
+  }
+  
+ .strong1
+{
+   -moz-border-radius-topright:5px;
+    -moz-border-radius-topleft:5px;
+    -moz-border-radius-bottomleft:5px;
+    -moz-border-radius-bottomright:5px;
+    margin-left:10px;
+	font-size:1.1em;
+} 	
+
+ .strong1 a{ color:#990000;}
+ .strong1 a:hover{ color:#666666;} 
+ 
+/*css for form*/
+
+.sel1{border:dashed 1px #ccc;}
+.sel2{ color:grey; padding:2px 2px;border:dashed 1px #ccc;}
+/*end*/
+.shishu_hd_listBg{ background:#750404 url(/images/hd_bg.gif) repeat-x left top; color:#fff;padding:3px 0 3px 15px; font-size:1.2em;}
+   
+  #list p{-moz-border-radius-topright:5px;
+    -moz-border-radius-topleft:5px;
+    -moz-border-radius-bottomleft:5px;
+    -moz-border-radius-bottomright:5px;
+    color:#737373;
+    font-size:1.2em;
+    font-weight:bold;
+    text-align:left;
+    }
+    
+div.detailshd{font-size:1.3em; color:#6E0000;}
+
+.detailshd b{background:url(/images/btnbg.gif) no-repeat left;font-size:12px; padding:3px 7px; color:#ffffff;}   
+.txt3{font-size:1.3em; color:#7C0A0A;}
+
+.printinfo a,.printinfo a:hover{
+    -moz-border-radius-topright:5px;
+    -moz-border-radius-topleft:5px;
+    -moz-border-radius-bottomleft:5px;
+    -moz-border-radius-bottomright:5px;
+    background:#126685;
+    color:#fff;
+    }
+    
+.detail{font-size:1.4em; color:#fff;background:#6C0000; padding:5px 0 0 15px;}    
+
+.links{
+ color:red;
+}

@@ -1,0 +1,180 @@
+    <style>
+	body{ background:#DEF1F8;}
+    table,tr,td{font-family:'Trebuchet MS',Georgia, "Times New Roman", Times, serif; font-size:13px; 
+    }
+	.border{ border:solid 1px #8FCEE7; padding:5px;}
+    .txt{ color:#8D8D8D; padding:0 0 0 5px;}
+	.txt1{ color:#000000; background:#DEF3FC; padding: 5px;}
+	h2{font-size:18px; font-weight:bold; color:#000000; padding:10px; margin:0;}
+    </style>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#F8FDFF" class="border">
+      <tr>
+        <td><h2>Shishu Details</h2></td>
+      </tr>
+      <tr>
+        <td><table width="100%" bgcolor="#F8F8F8" style="padding:5px;">
+          <tr>
+            <td width="43%" class="txt1">Shishu Name*</td>
+            <td width="57%" class="txt"><b><%="#{@user.fname.capitalize} "%></b></td>
+          </tr>
+          <tr>
+            <td class="txt1">Birth Date</td>
+            <td class="txt"><%= @user.dob %></td>
+          </tr>
+          <tr>
+            <td class="txt1">Birth Country</td>
+            <td class="txt"><%= @user.birth_country %></td>
+          </tr>
+          <%if !@user.birth_address.blank?%>
+          <tr>
+            <td class="txt1">Birth Address </td>
+            <td class="txt"><%= @user.birth_address %>,<%= @user.birth_city %></td>
+          </tr>
+          <%end%>
+          <tr>
+            <td class="txt1">Father's Name</td>
+            <td class="txt"><%= @user.member.father_full_name %></td>
+          </tr>
+          <tr>
+            <td class="txt1">Mother' Name</td>
+            <td class="txt"><%= @user.member.mother_full_name %></td>
+          </tr>
+          <tr>
+            <td class="txt1">Registration Date</td>
+            <td class="txt"><%= @user.created_at.strftime('%b %d %Y') %></td>
+          </tr>
+          <%if !@user.member.address.blank?%>
+          <tr>
+            <td class="txt1">Address </td>
+            <td class="txt"><%= @user.member.address %>,<%= @user.member.city %>,<%= @user.member.country %></td>
+          </tr>
+          <%end%>
+          <%if !@user.member.home_phone.blank?%>
+          <tr>
+            <td class="txt1">Home Phone </td>
+            <td class="txt"><%= @user.member.home_phone%></td>
+          </tr>
+          <%end%>
+          <%if !@user.member.father_cell_phone.blank?%>
+          <tr>
+            <td class="txt1">Father's Mobile </td>
+            <td class="txt"><%= @user.member.father_cell_phone %></td>
+          </tr>
+          <%end%>
+          <%if !@user.member.father_office_phone.blank?%>
+          <tr>
+            <td class="txt1">Father Office Phone </td>
+            <td class="txt"><%= @user.member.father_office_phone %></td>
+          </tr>
+          <%end%>
+          <%if !@user.member.mother_cell_phone.blank?%>
+          <tr>
+            <td class="txt1">Mother's Mobile</td>
+            <td class="txt"><%= @user.member.mother_cell_phone %></td>
+          </tr>
+          <%end%>
+          <%if !@user.member.mother_office_phone.blank?%>
+          <tr>
+            <td class="txt1">Mother Office Phone </td>
+            <td class="txt"><%= @user.member.mother_office_phone %></td>
+          </tr>
+          <%end%>
+          <%if !@user.member.father_email.blank?%>
+          <tr>
+            <td class="txt1">Father's Email </td>
+            <td class="txt"><%= @user.member.father_email %></td>
+          </tr>
+          <%end%>
+          <%if !@user.member.mother_email.blank?%>
+          <tr>
+            <td class="txt1">Mother's Email </td>
+            <td class="txt"><%= @user.member.mother_email %></td>
+          </tr>
+          <%end%>
+        </table></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td><h2>Shishu's Vaccination History</h2></td>
+          </tr>
+		  
+		  <% if !@user_vaccine.blank?%>
+          <tr>
+            <td>
+              
+              <table width="100%" cellpading="2" cellspacing="0">
+                <tr class="hd">
+                  <td width=27>S.N.</td>
+                  <td width="124" >Vaccine Name:</td>
+                  <td>Given Date:</td>
+                  <td >Comment:</td>
+                  <td></td>
+                </tr>
+                <%cnt=1%>
+                <% @user_vaccine.each do|uv| %>
+                <tr class="<%= cycle("even","odd") %>">
+                  <td><%= cnt %></td>
+                  <td ><%= uv.vaccine.vaccine_name %></td>
+                  <td width=169 ><%= uv.vaccine_date %></td>
+                  <td width=232 ><%= uv.comment %></td>
+                  <td width=89 ><%if @show_edit_link%>
+                      <%=link_to "Delete",:action=>"delete_vaccine_record",:id=>uv.id,:user_id=>uv.user_id %>
+                    <%end%></td>
+                </tr>
+                <%cnt=cnt+1%>
+                <% end %>
+              </table></td>
+          </tr>
+		  <%else%>
+          <tr>
+            <td>&nbsp;<em>No vaccination history</em></td>
+          </tr><%end%>
+        </table></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>
+<%if !@user_schedule.blank?%>
+
+
+         <table width="100%" cellpadding="1" cellspacing="1">
+                <tr >
+                  <td colspan="4">
+                  <h2>Next visit Detail of <%="#{@user.fname.capitalize}"%></h2>
+                  </td>
+                   
+            </tr>
+     
+            <tr class="hd">
+                <td>S.N.</td>
+                <td >Discription</td>
+                <td>Due Date</td>
+               
+                <td></td>
+                  
+            </tr>
+            <%cnt=1%>
+            
+            <% @user_schedule.each do|us| %>
+                <tr class="<%= cycle("even","odd") %>">
+                <td><%= cnt %></td>
+                 <td ><b><%= us.comment %></b></td>
+                 <td ><b><%= us.vaccination_date %></b></td>
+                 <td ><%if @show_edit_link%><%=link_to "Delete",:action=>"delete_next_schedule",:id=>us.id,:user_id=>us.user_id %><%end%></td>
+                </tr>
+                <%cnt=cnt+1%>
+            <% end %>
+        </table>
+ <%end%>
+        </td>
+      </tr>
+    </table>
+    
+    
+    

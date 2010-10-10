@@ -1,0 +1,21 @@
+<h2>Listing newsletters</h2>
+<%= link_to 'Create New Newsletter', :controller=>'admin/newsletter',:action=>'new' %>
+
+<table width=100% border=0 >
+	<tr style="color:#E888E0">
+		<th >Subject</th>
+	    <th>Created at</th>
+		<th>Updated at</th>
+	</tr>
+	<% for newsletter in @newsletters %>
+    	<tr>
+    		<td><%=h newsletter.subject %></td>
+    		<td><%=h newsletter.created_at.strftime('%b %d, %Y') %> at <%=newsletter.created_at.strftime('%I:%M %p')%></td>
+    		<td><%=h newsletter.updated_at.strftime('%b %d, %Y') %> at <%=newsletter.updated_at.strftime('%I:%M %p')%></td>
+    		<td><%= link_to 'Show',  :controller=>'admin/newsletter',:action=>'show',:id=>newsletter.id %>
+    		<td><%= link_to 'Edit', :controller=>'admin/newsletter',:action=>'edit',:id=>newsletter.id %></td>
+    		<td><%= link_to 'Delete', {:controller=>'admin/newsletter',:action=>'destroy'},:id=>newsletter.id,
+    		:confirm => 'Are you sure to delete ?' %></td>
+    	</tr>
+    <% end %>
+</table>

@@ -1,0 +1,208 @@
+<script>
+function fillparentinfo(id)
+{
+
+ if(document.getElementById(id).checked)
+ {
+          document.getElementById('member_address').value=document.getElementById('user_birth_address').value;
+          document.getElementById('member_country').value=document.getElementById('user_birth_country').value;
+          document.getElementById('member_city').value=document.getElementById('user_birth_city').value;
+ }
+ else
+ {
+        document.getElementById('member_address').value='';
+          document.getElementById('member_country').value='Nepal';
+          document.getElementById('member_city').value='';
+ 
+ }
+ 
+}
+</script>
+       
+<%= stylesheet_link_tag 'errors' %>
+<fieldset>
+    <legend></legend>
+        <% form_for :user  do |form| %>
+        <%= error_messages_for :user %>
+        <table width="51%" border="0" cellspacing="3" cellpadding="2">
+           <tr>
+            <td width="43%">Shishu Code: <br/></td>
+            <td colspan="2"><%= form.text_field :code,:size=>8 %> 
+            <span style="color:red;font-size:15px;">*</span>
+            </td>
+          </tr>
+          <tr>
+            <td width="43%">Shishu Name: <br/></td>
+            <td colspan="2"><%= form.text_field :fname %>
+            <span style="color:red;font-size:15px;">*</span>
+            </td>
+          </tr>
+           <td>Date of Birth:  <br/></td>
+            <td colspan="2"><%= form.date_select :dob %><span style="color:red;font-size:15px;">*</span></td>
+          </tr>
+          <tr>
+            <td>Time of Birth: <br/></td>
+            <td colspan="2"><%= form.time_select :tob %></td>
+          </tr>
+          <tr>
+            <td>Sex: <br /></td>
+            <td width="15%"><%= form.radio_button :sex,'M' %> Male </td>
+            <td width="42%"><%= form.radio_button :sex,'F' %>Female 
+            <span style="color:red;font-size:15px;">*</span>
+            </td>
+          </tr>
+          <tr>
+            <td>Height: <br/></td>
+            <td colspan="2"><%= form.text_field :height,:size=>5 %>cms</td>
+          </tr>
+          <tr>
+            <td>Weight: <br/></td>
+            <td colspan="2"><%= form.text_field :weight,:size=>5 %>kgs</td>
+          </tr>
+          <tr>
+            <td>Birth Address: <br/></td>
+            <td colspan="2"><%= form.text_field :birth_address %></td>
+          </tr>
+          <tr>
+            <td>Birth Country: <br /></td>
+            <td colspan="2"><%= form.collection_select :birth_country, @count=Country.find(:all),:id,:country_name %></td>
+          </tr>
+        
+          <tr>
+            <td>Birht City: </td>
+            <td colspan="2"><%= form.text_field :birth_city %></td>
+          </tr>
+        </table>
+</fieldset>
+
+        
+  
+   <fieldset>
+        <legend>Parent...</legend>
+ <%=check_box_tag "parent_address_info","1",nil,{:onClick=>"fillparentinfo(this.id);"}%>[ address same as baby]
+        <%= error_messages_for :member %>
+        <% fields_for :member do |member| %>
+        <table width="53%" border="0" cellspacing="3" cellpadding="2">
+          
+          <tr>
+             <td>Address:  </td>
+             <td><%= member.text_field :address %></td>
+           </tr>
+           <tr>
+           
+           
+             <td> Country: <br/></td>
+             <td>
+             <%= member.collection_select :country, @count=Country.find(:all),:id,:country_name %>
+            </td>
+           </tr>
+           <!--tr>
+             <td>State:  <br/></td>
+             <td>
+             <%#= related_collection_select :member,:state, [:member, :country],@state=State.find(:all),:state_name,:state_name,:country_id,{:include_default_state_select_text=>true} %>
+            </td>
+           </tr-->
+           <tr>
+             <td>City:  <br/></td>
+             <td><%= member.text_field :city %></td>
+           </tr>
+           
+          
+            
+            <tr>
+             <td>Home Phone: <br/></td>
+             <td><%= member.text_field :home_phone %></td>
+           </tr>
+            <tr>
+             <td colspan="2"><hr/></td>
+            
+           </tr>
+           <tr>
+             <td width="42%">Father Full Name: <br/></td>
+             
+             
+             <td width="58%"><%= member.text_field :father_full_name %>
+             <span style="color:red;font-size:15px;">*</span>
+             </td>
+           </tr>
+           <tr>
+             <td>Father email: <br/></td>
+             <td><%= member.text_field :father_email%></td>
+           </tr>
+           <tr>
+             <td>Father Cell Phone: <br/></td>
+             <td><%= member.text_field :father_cell_phone %></td>
+           </tr>
+            <tr>
+             <td>Father Office Phone: </td>
+             <td><%= member.text_field :father_office_phone %></td>
+           </tr>
+           <tr>
+             <td colspan="2"><hr/></td>
+            
+           </tr>
+            <tr>
+             <td>Mother Full Name: <br/></td>
+             <td><%= member.text_field :mother_full_name %>
+             <span style="color:red;font-size:15px;">*</span>
+             </td>
+           </tr>
+            
+            <tr>
+             <td>Mother email: <br/></td>
+             <td><%= member.text_field :mother_email %></td>
+           </tr>
+           <tr>
+             <td>Mother Cell Phone: <br/></td>
+             <td><%= member.text_field :mother_cell_phone %></td>
+           </tr>
+          
+          
+          
+          
+           <tr>
+             <td>Mother Office Phone: </td>
+             <td><%= member.text_field :mother_office_phone %></td>
+           </tr>
+           <tr>
+             <td>&nbsp;</td>
+             <td>&nbsp;</td>
+           </tr>
+         </table>
+         </fieldset>
+         <% end %>
+       <fieldset>
+     <legend>Login Detail</legend>
+     <table width="51%" border="0" cellspacing="3" cellpadding="2">
+       <tr>
+         <td width="43%">Login:  </td>
+         <td width="57%"><%= form.text_field :login %></td>
+       </tr>
+       <tr>
+         <td> Email: <br/></td>
+         <td><%= form.text_field :email %><br/>[* for notification and communication ]</td>
+       </tr>
+       <tr>
+         <td>Password: <br/></td>
+         <td><%= form.password_field :password %></td>
+       </tr>
+       <tr>
+         <td>Password Confirmation:</td>
+         <td><%= form.password_field :password_confirmation %></td>
+       </tr>
+     </table>
+     <br/>
+</fieldset>
+     <fieldset>
+     <legend>Comment</legend>
+     <%= form.text_area :comment,:rows=>10 %>
+     </fieldset>
+          <%= submit_tag "Save" %>
+         <% end %>
+         <br/>
+        
+        
+         <%= link_to 'Detail',  :controller=>'admin/home',:action=>'userdetail',:id=>@user.id %>
+        
+   
+  

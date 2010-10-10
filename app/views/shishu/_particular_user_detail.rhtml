@@ -1,0 +1,53 @@
+<table width="100%" cellspacing="2" cellpadding="2">
+ 	<tr class="hd">
+	     <td align=left><b>Shishu Name</b></td>
+	     <td align=left><b>DOB</b></td>
+	     <td align=left><b>Father's Name</b></td>
+	     <td align=left><b>Mother's Name</b></td>
+	     <td><b>Registrtion Date</b></td>
+	     <td></td>
+	     
+    </tr>
+	
+	  	<tr class="<%= cycle("even","odd") %>" >
+	  	    <td><%= @user.fname.capitalize %></td>
+	  	    <td><%= @user.dob %></td>
+	  	    <td><%= @user.member.father_full_name %></td>
+	  	    <td><%= @user.member.mother_full_name %></td>
+	    	<td><%= @user.created_at.strftime('%b %d %Y') %></td>
+	    	<%if @show_edit_link%>
+	    	<td class="action_stl">
+	    		<%= link_to 'Edit',  :controller=>'admin/home',:action=>'edituser',:id=>@user.id %> 
+	    		
+	  		</td>
+	  		<%end%>
+		</tr>
+	
+</table>
+<hr/>
+ <br/>
+
+<b>Shishu's Vaccination History</b><br>
+ <% if !@user_vaccine.blank?%>
+<table width="100%" cellpading="2" cellspacing="0">
+    <tr class="hd">
+    <td width=30>S.N.</td>
+        <td >Vaccine Name:</td>
+        <td>Given Date:</td>
+        <td >Comment:</td>
+    </tr>
+    <%cnt=1%>
+    <% @user_vaccine.each do|uv| %>
+        <tr class="<%= cycle("even","odd") %>">
+        <td><%= cnt %></td>
+         <td ><%= uv.vaccine.vaccine_name %></td>
+         <td width=300 ><%= uv.vaccine_date %></td>
+         <td width=450 ><%= uv.comment %></td>
+         <td width=100 ><%if @show_edit_link%><%=link_to "Delete",:action=>"delete_vaccine_record",:id=>uv.id,:user_id=>uv.user_id %><%end%></td>
+        </tr>
+        <%cnt=cnt+1%>
+    <% end %>
+</table>
+<%else%>
+<em>No Vaccination History</em><br/>
+<%end%>

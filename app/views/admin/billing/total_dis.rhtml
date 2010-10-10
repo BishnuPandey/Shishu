@@ -1,0 +1,29 @@
+
+
+      <table width="49%" border="0" cellspacing="0" cellpadding="0">
+    
+    
+    
+    <tr>
+        <td colspan='2'><br/><br/><hr/></td>
+        
+      </tr>
+
+<tr>
+        <td width="34%">SubTotal:</td>
+        <td width="56%"><input type="text" readonly="readonly" name='subTotal' id='subTotal'  value='<%=@subtotal%>'  style="background:white"   /></td>
+      </tr>
+
+      <tr>
+        <td width="34%">Discount Amount:</td>
+        <td width="56%"><input type="text" name='discount' id='discount' value='<%=@discount%>' onBlur="javascript:update_total();" /></td>
+      </tr>
+      <tr>
+
+<tr>
+        <td width="34%">Grand Total:</td>
+        <td width="56%"><input type="text" name='grandTotal' id='grandTotal' value='<%=number_with_precision(@grandtotal,2)%>'  readonly="readonly" style="background:white"  /></td>
+      </tr>
+      
+        </table>
+      

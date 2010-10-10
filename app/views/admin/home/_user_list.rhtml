@@ -1,0 +1,80 @@
+
+<% if @total == 0 %>
+<p>No user found...</p>
+
+<% else %>
+<br/>
+<table cellspacing="1" cellpadding="2" width="100%" >
+  <thead>
+  <tr >
+  <td align="left" class="shishu_hd_listBg">Shishu Listing</td>
+  <td class="shishu_hd_listBg" colspan="2"> Number of Shishus : <b><%= @total %> </b></td>
+  <td colspan="6" align="right">
+  <% if @items_pages.page_count > 1 %>
+
+<div class="pagination">
+
+<span class="current">Pages</span> <%= pagination_links_remote @items_pages %>
+</div>
+<% end %>
+  
+  </td>
+  </tr>
+    <tr class="hd">
+    <td <%= sort_td_class_helper "code" %>>
+        <%= sort_link_helper "Shishu Code", "code" %>
+      </td>
+     <td <%= sort_td_class_helper "regdate" %>>
+        <%= sort_link_helper "Reg. Date", "regdate" %>
+      </td>
+      <td <%= sort_td_class_helper "fname" %>>
+        <%= sort_link_helper "Shishu Name", "fname" %>
+      </td>
+      <td <%= sort_td_class_helper "dob" %>>
+        <%= sort_link_helper "Birth Date", "dob" %>
+      </td>
+      <td>Father's Name
+              </td>
+      <td >Mother's Name
+       
+      </td>
+      <td>Cell Phone        
+      </td>
+      <td>Home Phone        
+      </td>
+       <td>
+      </td>
+       
+    </tr>
+  </thead>
+  <tbody>
+  
+    <% @items.each do |i| %>
+    <tr class="<%= cycle("even","odd") %>">
+      <td><%= i.code %></td>
+      <td width="10%"><%= i.created_at.strftime("%d %b %Y") %></td>
+      <td><%= link_to i.fname,{ :controller=>"/admin/home",:action=>"show_detail",:id=>i.id},:popup => ['Shishu detail', 'height=400,width=400,scrollbars=1'] %></td>
+<% if false %>      <td><%= i.lname %></td><% end %>
+      <td  width="10%"><%= i.dob.strftime("%d %b %Y") %></td>
+      <td><%= i.member.father_full_name %></td>
+      <td><%= i.member.mother_full_name %></td>
+      <td><%= i.member.father_cell_phone %></td>
+      <td><%= i.member.home_phone %></td>
+      <td class="action_stl"><%= link_to 'Detail',  :controller=>'/admin/home',:action=>'userdetail',:id=>i.id %> | 
+	    		<%= link_to 'Edit',  :controller=>'/admin/home',:action=>'edituser',:id=>i.id %> | 
+	    		          <%= link_to 'Billing',:controller=>'/admin/billing',:action=>"bill",:id=>i.id  %>
+          </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% if @items_pages.page_count > 1 %>
+
+<div class="pagination">
+
+<span class="current">Pages</span> <%= pagination_links_remote @items_pages %>
+</div>
+<% end %>
+
+<% end %>

@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><%= @title %></title>
+        <%= javascript_include_tag :defaults %>
+        <%= javascript_include_tag :fckeditor %>
+      
+         <%= stylesheet_link_tag "errors" %>
+          <%= stylesheet_link_tag "shishu" %>
+    </head>
+    <body>
+        <div id="whole_page"  class="wrapper">
+            <% #if logged_in? %>
+                    <!--logged in :<%#=current_admin.login%>-->
+                    
+                    <% #end %>
+            <div id="header1">
+             
+            <h2> </h2>
+            <h1>Well Baby Clinic Admin Area</h1>
+
+           
+            </div>
+           
+             <div  class="shishuNav" >
+                    <% if logged_in? %>
+                        <%= render_partial "admin/admins/menu" %>
+                    <% end %>
+                </div>                
+            <div id="content">
+               
+               
+                 <% if flash[:notice] -%>
+                   
+                        <div id="notice" class="flaNotice"><%= flash[:notice] %></div>
+                   
+                <% end %>
+
+                <div class="container"><%= yield %></div>
+                <div class="footer">Copyright &copy; Shishu Well Baby Clinic 2009. All Rights Reserved.</div>
+            </div>
+            <br clear="all" />
+        </div>
+        </div>
+    </body>
+</html>

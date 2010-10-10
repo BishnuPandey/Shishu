@@ -1,0 +1,44 @@
+<h1>Stock add item</h1>
+<%= error_messages_for :stock %>
+<%= form_tag :id=>@stock %><br/>
+<table width="37%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="49%"><strong>Item Name:</strong></td>
+    <td width="51%"><strong><%= @stock.item_name %></strong></td>
+  </tr>
+  <tr>
+    <td><strong>Item Description:</strong></td>
+    <td><strong><%= @stock.item_description %></strong></td>
+  </tr>
+  <tr>
+    <td><strong>In Stock :<br/>
+    </strong></td>
+    <td><strong><%= @stock.item_quantity %></strong></td>
+  </tr>
+  <tr>
+    <td><strong>Quantity to add:<br/>
+    </strong></td>
+    <td><%= text_field_tag "quantity",nil,:size=>10 %></td>
+  </tr>
+  <tr>
+    <td><strong>Change Unit Price:</strong></td>
+    <td><%= text_field :stock, "item_unit_rate" ,:size=>5 %></td>
+  </tr>
+  <tr>
+    <td><strong>Item Unit Type</strong></td>
+    <td><%=text_field :stock,:item_unit_type,:size=>5%></td>
+  </tr>
+  <tr>
+    <td><strong>Minimum Stock:</strong></td>
+    <td><%=text_field :stock,:min_stock,:size=>5%></td>
+  </tr>
+  
+  <tr>
+    <td><strong>Maximum Stock:</strong></td>
+    <td><%=text_field :stock,:max_stock,:size=>5%></td>
+  </tr>
+</table>
+<%= submit_tag "Save" %>
+</form>
+<br/>
+<%= link_to 'Stock List', :action=>'index',:controller=>"admin/stock" %> 

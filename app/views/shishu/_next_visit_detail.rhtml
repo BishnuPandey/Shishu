@@ -1,0 +1,31 @@
+<%if !@user_schedule.blank?%>
+<div class="txt3">
+Next visit Detail of <%="#{@user.fname.capitalize}"%></div>
+         <table width="100%" cellpadding="1" cellspacing="1">
+            <tr class="hd">
+           <td width="3%">S.N.</td>
+                <td width="39%" >Discription</td>
+                <td width="40%">Nest visiting date</td>
+               
+                <td width="18%"></td>
+                 
+            </tr>
+            <%cnt=1%>
+            
+            <% @user_schedule.each do|us| %>
+                <tr class="<%= cycle("even","odd") %>">
+                <td><%= cnt %></td>
+                 <td ><b><%= us.comment %></b></td>
+                 <td ><b><%= us.vaccination_date %></b></td>
+                 <td >
+                 <%if @show_edit_link%>
+                 <%=link_to "Delete",:action=>"delete_next_schedule",:id=>us.id,:user_id=>us.user_id %>
+                 |
+                 <%=link_to "Memo",{:controller=>"/admin/home",:action=>"user_schedule_memo",:id=>us.id,:user_id=>us.user_id}, :popup=>["height=400,width=400,scrollbars=yes"] %>
+                 <%end%>
+                 </td>
+                </tr>
+                <%cnt=cnt+1%>
+            <% end %>
+        </table>
+ <%end%>

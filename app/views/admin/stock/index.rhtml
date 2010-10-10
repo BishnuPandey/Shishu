@@ -1,0 +1,32 @@
+<br><strong><%= link_to 'Add New Stock item', :action=>'add',:controller=>"admin/stock" %></strong><br /><br />
+<h1>Listing Stock Items</h1><br>
+<%if @stocks.blank?%>
+ <em>No item added in the stock</em><br />
+ <%else%>
+<table width="100%" cellpadding="2" cellspacing="1">
+  <tr class="hd" >
+		<td width="200">Item Name</td>
+		<td width="100">Item Description</td>
+		<td width="100">Item Quantity</td>
+		<td width="100">Unit Price</td>
+		<td width="100"></td>
+		<td width="100"></td>
+		<td width="100"></td>
+		
+		
+	</tr>
+ <% for item in @stocks %>
+  <tr class="<%= cycle("even","odd") %>" align= center <%if item.item_quantity<=item.min_stock+1 %>style="background:yellow;"<%end%>>
+    <td><%= item.item_name %></td>
+    <td><%= item.item_description %></td>
+    <td><%= item.item_quantity %></td>
+    <td><%= item.item_unit_rate %></td>
+    <td ><%=link_to 'Edit', :controller=>"admin/stock",:action=>'edit',:id=>item.id %></td>
+    <td ><%= link_to 'Add Stock', :action=>'add_stock',:controller=>"admin/stock",:id=>item.id %></td>
+    <td ><%= link_to 'Stock Vendor Details', :action=>'stockvendors',:controller=>"admin/stock",:id=>item.id %></td>
+  </tr>
+<% end %>
+</table>
+<%end%>
+
+   <%=render :partial=>'/admin/billing/stock_notification'%>

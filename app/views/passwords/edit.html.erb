@@ -1,0 +1,25 @@
+   <div class="rounded1">
+<div class="reset_pass"> 
+    
+    <% form_tag url_for(:action => "update", :id => params[:id]) do %>
+
+<table width="100%" border="0" cellspacing="5" cellpadding="5" >
+  <tr>
+    <td colspan="3"><h1>Reset Password</h1></td>
+  </tr>
+  <tr>
+    <td width="13%" class="reset_txt">Password :</td>
+    <td width="85%"><%= password_field_tag :password ,nil,{:class=>"reset_textbox"}%> <span>[Example: Between 6 and 40 characters]</span></td>
+  </tr>
+  <tr>
+    <td class="reset_txt">Confirm Password :</td>
+    <td colspan="2"><%= password_field_tag :password_confirmation,nil,{:class=>"reset_textbox"} %></td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td colspan="2"><%= submit_tag "Reset Password" %></td>
+  </tr>
+</table>
+    </div></div>
+    <% end %>
+

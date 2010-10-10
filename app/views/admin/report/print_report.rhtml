@@ -1,0 +1,49 @@
+  <%= stylesheet_link_tag "shishu" %>
+  <style>
+    .uptable{
+    background-color:#EEEEEE;
+    font-size: 13px;
+    }
+    .uprow{
+    background-color:#EEEEFF;
+    font-weight:bold;
+    }
+  </style>
+<html>
+<title>Shishu Well Baby Clinic :: Report on <%=@date%></title>
+
+<body>
+<table width="100%" border='0' cellspacing="0" cellpadding="2" style="background-color:#FFF">
+<tr><td colspan="3" class="uprow" >Shishu Well Baby Clinic :: Report on <%=@date%></td></tr>
+
+  <tr><td colspan=3>
+   <table width="90%" border="0" cellspacing="2" cellpadding="2" align="center" class="uptable">
+ 
+<%@users.each do |usr|%>
+       
+   
+            <tr >
+                <td width="15%"><%=usr.code%></td>
+                <td ><%=usr.fname%>/F:<%=usr.member.father_full_name%>(<%=usr.member.father_cell_phone%>)
+                /M:<%=usr.member.mother_full_name%>(<%=usr.member.mother_cell_phone%>)</td>
+                <td >
+                <%usr.user_schedules.find(:all,:conditions=>["vaccination_date like ?","%"+@tod_date.to_s+"%"],:order=>"created_at Desc").each do|usched|%>
+                <%=usched.comment%>
+                <%end%>
+                </td>
+              </tr>
+
+ <%end%>       
+ </table>
+ </td>
+ </tr>
+ <tr><td colspan=3 class="uprow" align="center">
+ <input type="button" name="printbtn" value="Print" onclick="window.print()"/>
+ &nbsp;
+ <input type="button" name="closebtn" value="Close" onclick="window.close()"/>
+ </td></tr>
+      </table>
+</body>
+</html>         
+         
+       

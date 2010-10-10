@@ -1,0 +1,178 @@
+<html >
+<head>
+<title>Bill Print</title>
+<style type="text/css">
+body{ background:#fff;font-family:'Trebuchet MS',Arial, verdana; padding:0; margin:0;}
+    @media print {
+      .noprint { display: none; }
+    }
+	@media print {
+    body { font-size: 11px }
+  }
+  @media screen {
+    body { font-size: 11px }
+  }
+  @media screen, print {
+    body { line-height: 1.2 }
+  }
+.txt{font-size:20px; color:#fff;}  
+.header{background:#F3F3F3 url(/images/bg.jpg) repeat-x left top; padding:5px 10px; border:solid 1px #CCCCCC;}  
+</style>
+
+<script language='javascript'>
+function printing()
+{
+  window.print();
+  window.location="/admin/billing";
+  
+}
+
+function closeit()
+{
+  window.location = '/admin/billing';
+}
+
+</script>
+</head>
+<body>
+<div class="header" style="width:700px; margin:0 auto;">
+
+ <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="6%" valign="middle"><span class="noprint"><%=image_tag "/images/logo.jpg"%></span></td>
+        <td width="94%" valign="middle"><span class="txt">Shishu The Well Baby Clinic</span></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td>
+	 <table  width="100%" border="0" cellspacing="0" cellpadding="0">
+	 <tr>
+	   <td valign="top">
+	    <p align="left" style="font-size:13px; padding:20px;">
+	   <strong>INVOICE</strong>
+	   <br />
+	   PAN NO. : 303606480
+	   </p>
+	   </td>
+	   <td valign="top">    <p align="right" style="font-size:13px; padding:20px;">
+            Kasthamandap Bazar<br/>
+            1st floor, Kamaladi, Kathmandu<br/>
+            Tel:01-4245491<br/>
+  </p></td>
+	 </tr>
+	 </table>
+                    </td>
+  </tr>
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="68%" valign="top"><table width="96%" border="0" cellspacing="0" cellpadding="0" style="font-size:13px;">
+          <tr>
+            <td width="23%" >User Name : </td>
+            <td width="77%" ><%=@user.fname.capitalize%></td>
+          </tr>
+          <tr>
+            <td >Birth Date :</td>
+            <td ><%=@user.dob.strftime('%Y-%m-%d')%></td>
+          </tr>
+          <tr>
+            <td >Sex :</td>
+            <td ><%=@user.sex%></td>
+          </tr>
+        </table></td>
+        <td width="32%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-size:13px;">
+          <tr>
+            <td width="50%">Date :</td>
+            <td width="50%"><%=Time.now.to_date%></td>
+          </tr>
+          <tr>
+            <td>Receipt No. :</td>
+            <td><%=@billentry.receipt_number%></td>
+          </tr>
+        </table>          </td>
+      </tr>
+    </table>      </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td><table width="100%" border="0" style="border:solid 1px #CCCCCC; padding:5px 10px; font-size:12px;" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+  <tr><td><strong>SN</strong></td>
+    <td><strong>Item Name</strong> </td>
+    <td><strong>Quantity</strong> </td>
+    <td><strong>Rate</strong></td>
+    <td><strong>Price</strong></td>
+  </tr>
+  <tr>
+  <td colspan="5" height="1px" style="background:#ddd"></td>
+  </tr>
+  <%cnt=1%>
+  <%@bill_details.each do |bd|%>
+  <tr>
+    <td height="5" colspan="5"></td>
+    </tr>
+  <tr>
+  <td><%=cnt%></td>
+    <td><%=bd.stock.item_name%></td>
+    <td><%=bd.quantity%></td>
+    <td><%=bd.rate%></td>
+    <td><%=bd.total_amount%></td>
+  </tr>
+   <%cnt+=1%>
+  <%end%>
+   <tr>
+    <td colspan="5" align="right" height="5px"></td>
+    </tr>
+  </table>	</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-size:13px;">
+      <tr>
+        <td width="16%"><strong>Sub Total :</strong> </td>
+        <td width="84%">Rs <%=@subtotal%></td>
+      </tr>
+      <tr>
+        <td><strong>Discount:</strong></td>
+        <td>Rs <%=@discount%></td>
+      </tr>
+      <tr>
+        <td><strong>Total :</strong></td>
+        <td>Rs <%=@grandtotal%> </td>
+      </tr>
+      <tr>
+        <td><strong>Received By :</strong></td>
+        <td><%=current_admin.login%></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center"><b style="font-size:14px;">Thank you !</b></td>
+  </tr>
+  <tr>
+    <td><div class="noprint" align="center">
+
+<a href="#" onClick="javascript: return printing();">Print</a>&nbsp;&nbsp;
+<a href="#" onClick="javascript: return closeit();">Close</a>
+</div></td>
+  </tr>
+</table>
+</div>
+
+
+
+
+  
+
+</body>
+</html>

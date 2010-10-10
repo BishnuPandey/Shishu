@@ -1,0 +1,36 @@
+<br>
+<strong><%= link_to 'Add Vendor',  :controller=>'admin/vendor',:action=>'new' %></strong>
+<br><br>
+<% if @vendors.blank? %>
+    <h1>No vendor exist</h1>
+<% else %>
+    <table width="100%" cellspacing="0" cellpadding="2">
+        <thead>
+            <tr class="hd">
+                <td>Company Name</td>
+                <td>Address</td>
+                <td>Office Phone</td>
+                <td>Cell Phone</td>
+                <td>Email</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <% @vendors.each do |vendor| %>
+                <tr class="<%= cycle("even","odd") %>">
+                    <td><%= vendor.name %></td>
+                    <td><%= vendor.address %></td>
+                    <td><%= vendor.office_phone %></td>
+                    <td><%= vendor.cell_number %></td>
+                    <td><%= vendor.email %></td>
+                    <td class="action_stl"><%= link_to 'Edit Vendor Detail', :action=>'edit',:id=>vendor.id %></td>
+                    <td class="action_stl"><%= link_to 'Payment Report', :action=>'paymentstatus',:id=>vendor.id %></td>
+                    <td class="action_stl"><%= link_to 'Item Supplied Detail', :action=>'supplieddetail',:id=>vendor.id %></td>
+                </tr>
+
+            <% end %>
+        </tbody>
+    </table>
+<% end %>

@@ -1,0 +1,26 @@
+<h2>Edit Page</h2>
+<%= error_messages_for :page %>
+
+<% form_for(:page, :url => {:controller=>'admin/cms', :action=>'edit'}) do |f| %>
+   <table width="87%" border="0" cellspacing="3" cellpadding="2">
+      <tr>
+        <td width="9%"><b>Page Name</b></td>
+        <td width="91%"><%= f.text_field :page_name, :size => 20 %></td>
+      </tr>
+      <tr>
+        <td width="9%"><b>Page Title</b></td>
+        <td width="91%"><%= f.text_field :page_title, :size => 20 %></td>
+      </tr>
+      <tr>
+        <td><b>Page Content</b></td>
+        <td><%= fckeditor_textarea("page", "page_content", :toolbarSet => 'Default', :width => '100%', :height => '500px') %></td>
+      </tr>
+      <tr>
+        <td width="9%"><b>Status</b></td>
+        <td width="91%"><%= f.select :status,["Show","Hide"] %></td>
+      </tr>
+    </table>
+    
+    <%= submit_tag "Save" %>
+<% end %><br>
+ <strong><%= link_to 'Cancel',:controller=>'admin/newsletter', :action=>'index' %></strong><br><br>

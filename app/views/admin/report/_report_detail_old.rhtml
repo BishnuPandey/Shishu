@@ -1,0 +1,117 @@
+<hr/>
+<b>Report For :<%=@date%> </b>
+<br/>
+
+
+<%#=link_to_remote "month",:update => "current_show_date",:url=>{:action=>"filter_report",:date_for_month=>@date}%>
+
+<hr/>
+
+<%if @billingdetail_item.blank?%>
+ <em>No item sold on this date.</em>
+ <%else%>
+ <table>
+<th ><td><b>Sales Report By Items</b></td></th>
+ <tr class="hd">
+  <td><b>Item Name</b></td>
+  <td><b>Quantity</b></td>
+  <td><b>Total Amount(Rs.)</b></td>
+  </tr>
+ 
+ <% @billingdetail_item.sort.each do |stock_id, quantitys| %>
+
+ <tr class="<%= cycle("even","odd") %>">
+     <td><%= Stock.find(stock_id).item_name %></td>
+     <% quantity=0 %>
+      <% total=0 %>
+     <% for billingdetail in quantitys %>
+         <% quantity += billingdetail.quantity %>
+          <% total += billingdetail.total_amount %>
+     <% end %>
+     <td><b><%= quantity %></b></td>
+      <td><b><%= total %></b></td>
+ </tr>
+ <% end %>
+ 
+ 
+ 
+  </table>
+  <hr>
+  <br>
+ <strong> <%= link_to_function "View Detail", "Element.toggle('detail');"%></strong>
+ <br><br>
+  
+  <div id="detail" style="display:none;">
+<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center">
+  <tr class="hd">
+  <td width="3%">S.N. </td>
+    <td width="10%">Billed By  </td>
+    <td width="16%">Shishu Name </td>
+    <td width="11%">Item Name </td>
+    <td width="3%">Qty</td>
+    <td width="5%">Rate(Rs)</td>
+    <td width="6%">Discount Amount</td>
+    <td width="10%">Total Amount(Rs)</td>
+    <td width="30%"> Comments</td>
+  </tr>
+  <%cnt=1%>
+  <%@billing.each do |b|%>
+  <%b.billing_details.each do|bd|%>
+  <tr class="<%= cycle("even","odd") %>">
+    <td><%=cnt%></td>
+    <td><%=b.admin.login%></td>
+    <td><%=b.user.fname%></td>
+    <td><%=bd.stock.item_name%></td>
+    <td><%=bd.quantity%></td>
+    <td><%=bd.rate%></td>
+    <td><%=b.discount%></td>
+    <td><%=bd.total_amount%></td>
+    <td><%=b.comment%></td>
+   
+  </tr>
+  <%cnt=cnt+1%>
+  <%end%>
+  
+<%end%>
+   <tr >
+   <td colspan="9"><hr/></td>
+   </tr>
+ <tr class="<%= cycle("even","odd") %>">
+  <td>&nbsp;</td>
+    <td align="center">Total</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="center"><%=@total_sum%></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="<%= cycle("even","odd") %>">
+  <td>&nbsp;</td>
+    <td align="center">Discount Rs.</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="center"><%=@total_discount%></td>
+    <td>&nbsp;</td>
+  </tr>
+   <tr class="<%= cycle("even","odd") %>">
+  <td>&nbsp;</td>
+    <td align="center">Grand Total</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="center"><%="#{@total_sum-@total_discount}"%></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</div>
+<%end%>
+<br/>
+<br/>
+ 

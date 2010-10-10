@@ -1,0 +1,19 @@
+<%if @stocks.size>1%>
+
+<a href="javascript:void(0);" onClick=" addElement();">Add more item</a>
+
+<%end%>
+
+<div id='dmore' style="display:none" >
+
+<select id='<%=@count%>' name='items[]' onChange="javascript:changeRelated(this.id,this.options[this.selectedIndex].value);check_quantity();" >
+  <%=options_from_collection_for_select(@stocks, "id", "item_name")%>
+  </select>
+  <input type="text" value=<%=@stocks[0].item_unit_rate%> name='rate_<%=@count%>' id='rate_<%=@count%>' onBlur="javascript:calculateTotal(this.id);" readonly />
+  <input type="text" value=0 name='quantity_<%=@count%>' id='quantity_<%=@count%>' onBlur="javascript:check_quantity();calculateTotal(this.id);" />
+  <input type="text" value=0.0 name='total_<%=@count%>' id='total_<%=@count%>' readonly style="background:white"  />
+
+ <br />
+ 
+ </div>
+ 

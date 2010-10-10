@@ -1,0 +1,26 @@
+
+<table border="0" cellspacing="1" cellpadding="2" width="100%">
+  <tr class="hd">
+		<td >Vaccine Name</th>
+	    <td>Vaccination Time From</th>
+		<td >Vaccination To</th>
+		<td >&nbsp;</th>
+	    <td>Vaccine Description</th>
+		<td>Vaccine Type</th>
+		<td >Side Effects</th>
+	 
+	</tr>
+    <tr class="<%= cycle("even","odd")%>">
+        <td><%= @vaccine.vaccine_name %></td>
+        <td><%= @vaccine.vaccination_time_from %></td>
+        <td><%= @vaccine.vaccination_time_to %></td>
+        <td><%= @vaccine.vaccination_time_format %></td>
+        <td><%= @vaccine.vaccine_description %></td>
+        <td><%= @vaccine.vaccine_type %></td>
+        <td><%= @vaccine.vaccine_side_effects %></td>
+      
+    </tr>
+</table>
+<br>
+<%= link_to 'Edit', :action=>'edit',:controller=>"admin/vaccines",:id=>@vaccine.id %> |
+<%= link_to 'Back', :action=>'index',:controller=>"admin/vaccines" %>
