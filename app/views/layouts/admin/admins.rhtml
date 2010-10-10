@@ -11,10 +11,6 @@
     </head>
     <body>
         <div id="whole_page"  class="wrapper">
-            <% #if logged_in? %>
-                    <!--logged in :<%#=current_admin.login%>-->
-                    
-                    <% #end %>
             <div id="header1">
              
             <h2> </h2>
@@ -25,16 +21,14 @@
            
              <div  class="shishuNav" >
                     <% if logged_in? %>
-                        <%= render_partial "admin/admins/menu" %>
+                        <%=render "admin/admins/menu" %>
                     <% end %>
                 </div>                
             <div id="content">
                
                
                  <% if flash[:notice] -%>
-                   
                         <div id="notice" class="flaNotice"><%= flash[:notice] %></div>
-                   
                 <% end %>
 
                 <div class="container"><%= yield %></div>
